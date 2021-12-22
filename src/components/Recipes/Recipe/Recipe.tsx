@@ -1,7 +1,11 @@
-import React from "react";
+import React from 'react'
 
 interface RecipeProps {}
 
 export const Recipe = (props: RecipeProps) => {
-   return <div></div>;
-};
+  return (
+    <div>
+      <h3>Recipe</h3>
+    </div>
+  )
+}
