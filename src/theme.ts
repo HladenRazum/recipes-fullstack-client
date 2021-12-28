@@ -1,4 +1,4 @@
-import { red, blue, orange } from "@mui/material/colors";
+import { red, blue, orange, grey } from "@mui/material/colors";
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -7,7 +7,7 @@ const theme = createTheme({
          main: blue[500],
       },
       secondary: {
-         main: orange[500],
+         main: grey[500],
       },
       error: {
          main: red.A400,

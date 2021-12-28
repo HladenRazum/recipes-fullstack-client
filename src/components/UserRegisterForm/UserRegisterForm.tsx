@@ -2,7 +2,7 @@ import { Grid, TextField } from "@mui/material";
 import React, { FormEvent } from "react";
 import { Formik, Form, Field, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { UserClass } from "../../interfaces/user.interface";
+import { UserClass, UserRoles } from "../../interfaces/user.interface";
 
 interface Props {}
 
@@ -38,8 +38,8 @@ const handleSubmit = (
       values.username,
       values.firstname,
       values.lastname,
-      values.email
-      // "ADMIN"
+      values.email,
+      "REGISTERED"
    );
 
    user.create();

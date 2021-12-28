@@ -5,16 +5,17 @@ export interface IUser {
    firstname: string;
    lastname: string;
    email: string;
-   // role: UserRoles;
+   role: UserRoles;
    // createdAt: Date;
 }
 
 export class UserClass {
    constructor(
-      public username: string,
-      public firstname: string,
-      public lastname: string,
-      public email: string
+      private username: string,
+      private firstname: string,
+      private lastname: string,
+      private email: string,
+      private role: UserRoles
    ) {}
 
    async create() {
@@ -23,7 +24,8 @@ export class UserClass {
             this.username,
             this.firstname,
             this.lastname,
-            this.email
+            this.email,
+            (this.role = "REGISTERED")
          );
          const response = await fetch("http://localhost:9000/users", {
             method: "POST",
@@ -40,14 +42,4 @@ export class UserClass {
          console.log(error);
       }
    }
-   // update() {
-   //    fetch(URL, {
-   //       method: "PUT",
-   //       headers: {
-   //          "Content-Type": "Application/JSON"         }
-   //       body: {
-   //          "username" : "123"
-   //       },
-   //    });
-   // }
 }
