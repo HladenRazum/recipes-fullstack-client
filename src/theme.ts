@@ -1,4 +1,4 @@
-import { red, brown, blue, orange } from "@mui/material/colors";
+import { red, blue, orange } from "@mui/material/colors";
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
 const theme = createTheme({
