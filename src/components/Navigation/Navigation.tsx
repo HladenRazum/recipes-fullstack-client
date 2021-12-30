@@ -4,18 +4,33 @@ import { NavLink } from "react-router-dom";
 
 interface Props {}
 
-const links = [
+interface Links {
+   title: string;
+   linkTo: string;
+}
+
+const links: Links[] = [
    {
       title: "home",
       linkTo: "/",
    },
+
    {
-      title: "account",
-      linkTo: "/account",
+      title: "recipes",
+      linkTo: "/recipes",
    },
+
    {
       title: "register",
       linkTo: "/register",
+   },
+   {
+      title: "login",
+      linkTo: "/login",
+   },
+   {
+      title: "account",
+      linkTo: "/account",
    },
 ];
 
@@ -30,6 +45,7 @@ export const Navigation = (props: Props) => {
    const navLinkStyle = {
       margin: "0 1em",
       padding: "3px 7px",
+      color: "#222",
    };
 
    return (
