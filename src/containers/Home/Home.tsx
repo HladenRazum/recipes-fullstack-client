@@ -1,24 +1,54 @@
 import React from "react";
 import { Container, Grid, Typography } from "@mui/material";
+import { DefaultRootState, useSelector, useDispatch } from "react-redux";
+import { counterActions } from "../../store/counter";
 
 interface Props {}
 
+interface NewRootState extends DefaultRootState {
+   counter: number;
+}
+
+interface ShowCounter {
+   show: boolean;
+}
+
 export const Home = (props: Props) => {
+   const counter = useSelector((state: NewRootState) => state.counter);
+
+   console.log(counter);
+
+   const showCounter = useSelector((state: ShowCounter) => state.show);
+   const dispatch = useDispatch();
+
+   const incrementHandler = () => {
+      dispatch(counterActions.increment());
+   };
+   const decrementHandler = () => {
+      dispatch(counterActions.decrement());
+   };
+
+   const increase = () => {
+      dispatch(counterActions.increase(12));
+   };
+
+   const toggleCounter = () => {
+      dispatch(counterActions.toggle());
+   };
+
    return (
       <Container>
-         <Typography textAlign="center" variant="h3">
+         <Typography variant="h2" textAlign="center">
             Homepage
          </Typography>
-
-         <Grid container margin="auto">
-            <Grid item component="aside" md={4} sm={4}>
-               <h3>ASIDE WITH FILTERS FOR RECIPES</h3>
-            </Grid>
-
-            <Grid item component="section" md={8} sm={8}>
-               <h3>SECTION WITH RECIPES</h3>
-            </Grid>
-         </Grid>
+         {showCounter && <h2>-- {counter} --</h2>}
+         <button onClick={incrementHandler}>Increment</button>{" "}
+         <button onClick={decrementHandler}>Decrement</button>
+         <button onClick={increase}>Increase</button>
+         <button onClick={toggleCounter}>Toggle Counter</button>
       </Container>
    );
 };
+
+// useSelector => use this to return a slice of the store state
+// useDispatch => allows us to dispatch actions to the store
