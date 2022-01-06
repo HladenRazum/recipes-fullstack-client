@@ -6,19 +6,18 @@ import { counterActions } from "../../store/counter";
 interface Props {}
 
 interface NewRootState extends DefaultRootState {
-   counter: number;
-}
-
-interface ShowCounter {
-   show: boolean;
+   counter: {
+      counter: number;
+      show: boolean;
+   };
 }
 
 export const Home = (props: Props) => {
-   const counter = useSelector((state: NewRootState) => state.counter);
+   const counter = useSelector((state: NewRootState) => state.counter.counter);
 
    console.log(counter);
 
-   const showCounter = useSelector((state: ShowCounter) => state.show);
+   const showCounter = useSelector((state: NewRootState) => state.counter.show);
    const dispatch = useDispatch();
 
    const incrementHandler = () => {
