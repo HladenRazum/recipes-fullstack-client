@@ -1,15 +1,6 @@
 export type UserRoles = "ANONYMOUS" | "REGISTERED" | "ADMIN";
 const URL = "http://localhost:9000/api/";
 
-export interface IUser {
-   username: string;
-   firstname: string;
-   lastname: string;
-   email: string;
-   role: UserRoles;
-   // createdAt: Date;
-}
-
 export class UserClass {
    constructor(
       private username: string,
@@ -55,7 +46,7 @@ export class UserClass {
             throw new Error("There was an error with your authentication");
          }
          const { token } = await response.json();
-         alert(token);
+         //
       } catch (error) {
          alert(error);
       }

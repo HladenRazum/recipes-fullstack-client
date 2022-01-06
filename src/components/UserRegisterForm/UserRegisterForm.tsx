@@ -2,7 +2,7 @@ import { Grid, TextField } from "@mui/material";
 import React, { FormEvent } from "react";
 import { Formik, Form, Field, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { UserClass, UserRoles } from "../../interfaces/user.interface";
+import { UserClass } from "../../repository/user-repository";
 
 interface Props {}
 
@@ -50,30 +50,15 @@ const UserRegisterForm = (props: Props) => {
          <Form>
             <div>
                <label>Username</label>
-               <Field
-                  id="username"
-                  name="username"
-                  placeholder="Username"
-                  // className="formik-field"
-               />
+               <Field id="username" name="username" />
             </div>
             <div>
                <label>Password</label>
-               <Field
-                  id="password"
-                  name="password"
-                  placeholder="password"
-                  // className="formik-field"
-               />
+               <Field id="password" name="password" />
             </div>
             <div>
                <label>Email</label>
-               <Field
-                  id="email"
-                  name="email"
-                  placeholder="Email address"
-                  className="formik-field"
-               />
+               <Field id="email" name="email" className="formik-field" />
             </div>
             <button type="submit">Submit</button>
          </Form>
