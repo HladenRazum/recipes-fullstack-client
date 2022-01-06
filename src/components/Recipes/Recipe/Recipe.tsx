@@ -1,11 +1,24 @@
-import React from 'react'
+import { Card, Grid, Typography } from "@mui/material";
+import React from "react";
 
-interface RecipeProps {}
-
-export const Recipe = (props: RecipeProps) => {
-  return (
-    <div>
-      <h3>Recipe</h3>
-    </div>
-  )
+interface RecipeProps {
+   title: string;
+   description: string;
+   rating: number;
 }
+
+export const Recipe: React.FC<RecipeProps> = ({
+   title,
+   description,
+   rating,
+}) => {
+   return (
+      <Card sx={{ padding: 2 }}>
+         <Typography component="h4" variant="h4">
+            {title}
+         </Typography>
+         <Typography variant="body1">{description}</Typography>
+         <Typography variant="h4">{rating}</Typography>
+      </Card>
+   );
+};

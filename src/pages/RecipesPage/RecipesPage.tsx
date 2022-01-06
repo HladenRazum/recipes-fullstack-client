@@ -1,6 +1,7 @@
-import { Container, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import React from "react";
 import { Outlet } from "react-router-dom";
+import { Recipes } from "../../components/Recipes/Recipes";
 
 interface Props {}
 
@@ -11,8 +12,11 @@ const RecipesPage = (props: Props) => {
             <Typography textAlign="center" variant="h3">
                Recipes Page
             </Typography>
-            <Typography variant="h3">Filtered Items</Typography>
-            <Outlet />
+            <Grid container>
+               <Grid item>
+                  <Recipes />
+               </Grid>
+            </Grid>
          </Container>
       </React.Fragment>
    );
