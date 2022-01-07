@@ -36,16 +36,18 @@ const links: Links[] = [
 
 export const Navigation = (props: Props) => {
    const isActiveNavLinkStyle = {
-      margin: "0 1em",
+      marginRight: "1em",
       padding: "3px 7px",
       color: "red",
       border: "1px solid red",
    };
 
    const navLinkStyle = {
-      margin: "0 1em",
+      marginRight: "1em",
       padding: "3px 7px",
       color: "#222",
+      border: "1px",
+      borderColor: "transparent",
    };
 
    return (
@@ -53,10 +55,10 @@ export const Navigation = (props: Props) => {
          <Box
             component="ul"
             sx={{
-               justifyContent: "center",
                display: "flex",
-               padding: 2,
-               backgroundColor: "secondary.light",
+               padding: 3,
+               backgroundColor: "#fff",
+               marginTop: 0,
             }}
          >
             {links.map((link) => (

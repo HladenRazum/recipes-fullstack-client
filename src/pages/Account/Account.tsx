@@ -1,5 +1,6 @@
 import { Container, Typography } from "@mui/material";
 import React from "react";
+import AddRecipeForm from "../../components/AddRecipeForm/AddRecipeForm";
 
 interface Props {}
 
@@ -10,10 +11,7 @@ const Account = (props: Props) => {
             <Typography textAlign="center" variant="h3">
                Account Settings
             </Typography>
-            <p>
-               Here you can manage your profile settings and create/update your
-               published recipes.
-            </p>
+            <AddRecipeForm />
          </Container>
       </React.Fragment>
    );

@@ -12,11 +12,6 @@ code {
       monospace;
 }
 
-#root {
-   min-height: 100vh;
-}
-
 body {
    min-height: 100vh;
-   min-width: 100%;
 }

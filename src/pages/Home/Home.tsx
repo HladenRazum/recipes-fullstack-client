@@ -3,20 +3,31 @@ import { Card, Container, Grid, Typography } from "@mui/material";
 import Header from "../../components/Header/Header";
 import FeaturedRecipe from "../../components/Recipes/Recipe/FeaturedRecipe";
 import { Recipes } from "../../components/Recipes/Recipes";
+import SearchRecipesForm from "../../components/SearchRecipesForm/SearchRecipesForm";
+import { Recipe } from "../../components/Recipes/Recipe/Recipe";
 
 interface Props {}
 
 export const Home = (props: Props) => {
    return (
       <React.Fragment>
-         <Typography variant="h2" textAlign="center">
-            Homepage
-         </Typography>
+         <Container>
+            <SearchRecipesForm />
+         </Container>
          <Header />
          <Container>
-            <Card sx={{ padding: 2 }}>
-               <FeaturedRecipe />
-            </Card>
+            <Grid container justifyContent="space-between">
+               <Grid item md={8}>
+                  <FeaturedRecipe />
+               </Grid>
+               <Grid item md={3}>
+                  <Recipe
+                     title="Testing Recipe"
+                     description="A tasty breakfast with eggs"
+                     rating={9}
+                  />
+               </Grid>
+            </Grid>
          </Container>
       </React.Fragment>
    );
