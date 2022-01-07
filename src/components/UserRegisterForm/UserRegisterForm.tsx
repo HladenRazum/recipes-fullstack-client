@@ -3,6 +3,7 @@ import React, { FormEvent } from "react";
 import { Formik, Form, Field, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { UserClass } from "../../repository/user-repository";
+import { addNewUser } from "../../api";
 
 interface Props {}
 
@@ -38,7 +39,8 @@ const handleSubmit = (
       "REGISTERED"
    );
 
-   user.create();
+   // user.create();
+   addNewUser(user);
 
    // Reset the form
    actions.resetForm();

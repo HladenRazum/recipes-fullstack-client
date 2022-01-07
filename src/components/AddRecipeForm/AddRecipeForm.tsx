@@ -4,6 +4,8 @@ import * as yup from "yup";
 import { Box } from "@mui/material";
 import { RecipeClass } from "../../repository/recipe-repository";
 
+import { addNewRecipe } from "../../api/index";
+
 interface Props {}
 
 interface FormikValues {
@@ -70,6 +72,7 @@ const AddRecipeForm = (props: Props) => {
       console.log(recipe);
 
       // SEND A POST REQUEST TO DATABASE
+      addNewRecipe(recipe);
    };
 
    return (
@@ -82,24 +85,60 @@ const AddRecipeForm = (props: Props) => {
             <Formik
                initialValues={initialValues}
                onSubmit={submitHandler}
-               validationSchema={validationSchema}
+               // validationSchema={validationSchema}
             >
                <Form>
                   <div>
-                     <Field id="name" name="name" placeholder="Name" />
-                     <ErrorMessage name="name" />
+                     <label>Recipe Name</label>
+                     <Field id="name" name="name" />
                   </div>
                   <div>
-                     <Field as="select" id="category" name="category" />
+                     <label>Category</label>
+                     <Field as="select" name="category" id="category">
+                        <option value="Desserts">Desserts</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Launch">Launch</option>
+                     </Field>
                   </div>
                   <div>
+                     <label>Instructions</label>
                      <Field
                         as="textarea"
                         id="instructions"
                         name="instructions"
-                        placeholder="Insrtuctions"
                      />
-                     <ErrorMessage name="content" />
+                  </div>
+                  <div>
+                     <label>Image url</label>
+                     <Field id="image" name="image" />
+                  </div>
+
+                  <div>
+                     <label>Ingedient</label>
+                     <Field id="ingredient1" name="ingredient1" />
+                  </div>
+
+                  <div>
+                     <label>Ingedient</label>
+                     <Field id="ingredient2" name="ingredient2" />
+                  </div>
+
+                  <div>
+                     <label>Ingedient</label>
+                     <Field id="ingredient3" name="ingredient3" />
+                  </div>
+
+                  <div>
+                     <label>ingredient Measure</label>
+                     <Field id="ingredientMeasure1" name="ingredientMeasure1" />
+                  </div>
+                  <div>
+                     <label>ingredient Measure</label>
+                     <Field id="ingredientMeasure2" name="ingredientMeasure2" />
+                  </div>
+                  <div>
+                     <label>ingredient Measure</label>
+                     <Field id="ingredientMeasure3" name="ingredientMeasure3" />
                   </div>
                   <button type="submit">Create recipe</button>
                </Form>
