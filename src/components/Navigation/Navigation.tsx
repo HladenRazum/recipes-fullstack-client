@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-interface Props {}
+interface Props { }
 
 interface Links {
    title: string;
@@ -58,6 +58,7 @@ export const Navigation = (props: Props) => {
                display: "flex",
                padding: 3,
                backgroundColor: "#fff",
+               justifyContent: "center",
                marginTop: 0,
             }}
          >
