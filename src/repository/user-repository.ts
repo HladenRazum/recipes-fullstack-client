@@ -9,7 +9,7 @@ export class UserClass {
       private role: UserRoles,
       private lastname?: string,
       private firstname?: string
-   ) {}
+   ) { }
 
    async create() {
       try {
