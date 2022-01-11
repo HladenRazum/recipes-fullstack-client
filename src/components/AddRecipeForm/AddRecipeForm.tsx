@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent, ChangeEventHandler } from "react";
 import {
    ErrorMessage,
    Field,
@@ -13,20 +13,36 @@ import { CSSObject } from "@emotion/react";
 import { RecipesAPI } from "../../repository/recipe-api";
 import { IngredientsModel, RecipeModel } from "../../repository/recipe-model";
 import { getValuePairsFromStringOfIngredients } from "../utils";
+import PreviewImage from "./PreviewImage";
 
-interface Props { }
+const SUPPORTED_FORMATS = "image/png, image/jpeg";
+
+interface Props {}
 
 interface FormikValues {
    name: string;
    instructions: string;
    category: string;
-   imageURL: string;
+   image: File | null;
    ingredients: string;
 }
 
 const validationSchema = yup.object({
    name: yup.string().required("Name is required"),
-   // image: yup.string().required("Image is required"),
+   image: yup
+      .mixed()
+      .nullable()
+      .required()
+      .test(
+         "FILE_SIZE",
+         "Uploaded file's size is too big.",
+         (value) => !value || (value && value.size <= 1024 * 1024)
+      )
+      .test(
+         "FILE_FORMAT",
+         "Uplaoded file has unsupported format.",
+         (value) => !value || (value && SUPPORTED_FORMATS.includes(value?.type))
+      ),
    instructions: yup
       .string()
       .required("Instructions are required")
@@ -37,7 +53,7 @@ const initialValues: FormikValues = {
    name: "",
    instructions: "",
    category: "",
-   imageURL: "",
+   image: null,
    ingredients: "",
 };
 
@@ -46,22 +62,25 @@ const AddRecipeForm = (props: Props) => {
       values: FormikValues,
       actions: FormikHelpers<FormikValues>
    ) => {
-
       // used a helper function to convert data from ingredients String to arrays of Ingredients
-      const ingredientArrays: IngredientsModel[] = getValuePairsFromStringOfIngredients(values.ingredients);
+      const ingredientArrays: IngredientsModel[] =
+         getValuePairsFromStringOfIngredients(values.ingredients);
 
-      const recipe = new RecipeModel(
-         values.name,
-         values.category,
-         values.instructions,
-         values.imageURL,
-         ingredientArrays
-      );
+      // console.log(values);
+      if (values.image !== null) {
+         const recipe = new RecipeModel(
+            values.name,
+            values.category,
+            values.instructions,
+            values.image,
+            ingredientArrays
+         );
+         console.log(recipe);
+      }
 
-      console.log(recipe);
-      RecipesAPI.createItem(recipe).then((data: RecipeModel) => {
-         console.log(data);
-      });
+      // RecipesAPI.createItem(recipe).then((data: RecipeModel) => {
+      //    console.log(data);
+      // });
    };
 
    const CATEGORIES = ["dessert", "lunch", "dinner", "breakfast"];
@@ -95,6 +114,23 @@ const AddRecipeForm = (props: Props) => {
             }}
          >
             <form onSubmit={formik.handleSubmit}>
+               <input
+                  type="file"
+                  required
+                  accept={SUPPORTED_FORMATS}
+                  id="image"
+                  name="image"
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                     if (e.target.files === null) {
+                        return;
+                     }
+                     formik.setFieldValue("image", e.target.files[0]);
+                  }}
+               />
+               {formik.values.image && (
+                  <PreviewImage file={formik.values.image} />
+               )}
+
                <TextField
                   select
                   label="Category"
@@ -165,22 +201,6 @@ const AddRecipeForm = (props: Props) => {
                   helperText={
                      formik.touched.ingredients && formik.errors.ingredients
                   }
-                  size="small"
-                  sx={inputStyles}
-               />
-
-               <TextField
-                  fullWidth
-                  label="ImageURL"
-                  required
-                  name="imageURL"
-                  id="imageURL"
-                  value={formik.values.imageURL}
-                  onChange={formik.handleChange}
-                  error={
-                     formik.touched.imageURL && Boolean(formik.errors.imageURL)
-                  }
-                  helperText={formik.touched.imageURL && formik.errors.imageURL}
                   size="small"
                   sx={inputStyles}
                />

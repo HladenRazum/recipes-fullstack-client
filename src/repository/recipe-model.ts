@@ -14,7 +14,7 @@ export class RecipeModel implements Identifiable {
       public name: string,
       public category: string,
       public instructions: string,
-      public imageURL: string,
+      public image: File,
       public ingredients: IngredientsModel[]
    ) {}
 }
