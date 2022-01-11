@@ -12,6 +12,7 @@ import { Box, Button, MenuItem, Paper, TextField } from "@mui/material";
 import { CSSObject } from "@emotion/react";
 import { RecipesAPI } from "../../repository/recipe-api";
 import { IngredientsModel, RecipeModel } from "../../repository/recipe-model";
+import { getValuePairsFromStringOfIngredients } from "../utils";
 
 interface Props { }
 
@@ -45,19 +46,9 @@ const AddRecipeForm = (props: Props) => {
       values: FormikValues,
       actions: FormikHelpers<FormikValues>
    ) => {
-      // if (values.ingredients.length > 0) {
-      let ingredientArrays: IngredientsModel[] = [];
-      const ingredientsArray = values.ingredients.trim().split("\n");
-      ingredientsArray.forEach((ingredientString) => {
-         const ingredientCouple = ingredientString.trim().split(" - ");
-         const ingredient: IngredientsModel = {
-            ingredientName: ingredientCouple[0],
-            ingredientPortion: ingredientCouple[1],
-         };
-         ingredientArrays.push(ingredient);
-      });
 
-      console.log(ingredientArrays);
+      // used a helper function to convert data from ingredients String to arrays of Ingredients
+      const ingredientArrays: IngredientsModel[] = getValuePairsFromStringOfIngredients(values.ingredients);
 
       const recipe = new RecipeModel(
          values.name,
