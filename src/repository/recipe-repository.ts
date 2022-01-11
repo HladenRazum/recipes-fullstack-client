@@ -4,10 +4,9 @@ export class Recipe implements IRecipe, Repository<IRecipe, IdType> {
    constructor(
       public name: string,
       public instructions: string,
-      public _id: IdType | undefined
-   ) {
-
-   }
+      public category: string,
+      public _id?: IdType | undefined
+   ) {}
    async add(item: IRecipe) {
       try {
          const response = await fetch("URL");
@@ -43,8 +42,4 @@ export class Recipe implements IRecipe, Repository<IRecipe, IdType> {
          console.log(error);
       }
    }
-
-
-
-
 }

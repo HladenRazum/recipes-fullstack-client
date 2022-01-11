@@ -1,14 +1,22 @@
 import React from "react";
-import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
+import {
+   ErrorMessage,
+   Field,
+   Form,
+   Formik,
+   FormikHelpers,
+   useFormik,
+} from "formik";
 import * as yup from "yup";
-import { Box } from "@mui/material";
+import { Box, TextField } from "@mui/material";
+import { Recipe } from "../../repository/recipe-repository";
 
 interface Props {}
 
 interface FormikValues {
    name: string;
-   category: string;
    instructions: string;
+   category: string;
    // image: string;
    // ingredient1: string;
    // ingredient2: string;
@@ -29,8 +37,8 @@ const validationSchema = yup.object({
 
 const initialValues: FormikValues = {
    name: "",
-   category: "",
    instructions: "",
+   category: "",
 };
 
 const AddRecipeForm = (props: Props) => {
@@ -38,14 +46,27 @@ const AddRecipeForm = (props: Props) => {
       values: FormikValues,
       actions: FormikHelpers<FormikValues>
    ) => {
-      // const recipe = new RecipeClass(
-      //    values.name,
-      //    values.category,
-      //    values.instructions,
-      // );
-      // console.log(recipe);
+      const recipe = new Recipe(
+         values.name,
+         values.instructions,
+         values.category
+      );
+      console.log(recipe);
       // SEND A POST REQUEST TO DATABASE
    };
+
+   const CATEGORIES = ["dessert", "lunch", "dinner", "breakfast"];
+   const categoryOptions = CATEGORIES.map((category) => (
+      <option key={category} value={category.toLowerCase()}>
+         {category}
+      </option>
+   ));
+
+   const formik = useFormik({
+      initialValues,
+      validationSchema,
+      onSubmit: submitHandler,
+   });
 
    return (
       <React.Fragment>
@@ -54,7 +75,20 @@ const AddRecipeForm = (props: Props) => {
                maxWidth: 600,
             }}
          >
-            <Formik
+            <form onSubmit={formik.handleSubmit}>
+               <TextField
+                  label="Recipe Name"
+                  required
+                  name="name"
+                  id="name"
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
+                  error={formik.touched.name && Boolean(formik.errors.name)}
+                  helperText={formik.touched.name && formik.errors.name}
+               />
+            </form>
+
+            {/* <Formik
                initialValues={initialValues}
                onSubmit={submitHandler}
                validationSchema={validationSchema}
@@ -67,9 +101,10 @@ const AddRecipeForm = (props: Props) => {
                   <div>
                      <label>Category</label>
                      <Field as="select" id="category" name="category">
-                        <option value="dessert">dessert</option>
-                        <option value="breakfast">breakfast</option>
-                        <option value="dinner">dinner</option>
+                        <option value="default" disabled>
+                           Select a category...
+                        </option>
+                        {categoryOptions}
                      </Field>
                   </div>
                   <div>
@@ -83,7 +118,7 @@ const AddRecipeForm = (props: Props) => {
 
                   <button type="submit">Create recipe</button>
                </Form>
-            </Formik>
+            </Formik> */}
          </Box>
       </React.Fragment>
    );
