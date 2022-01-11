@@ -17,7 +17,7 @@ import PreviewImage from "./PreviewImage";
 
 const SUPPORTED_FORMATS = "image/png, image/jpeg";
 
-interface Props {}
+interface Props { }
 
 interface FormikValues {
    name: string;
@@ -66,7 +66,7 @@ const AddRecipeForm = (props: Props) => {
       const ingredientArrays: IngredientsModel[] =
          getValuePairsFromStringOfIngredients(values.ingredients);
 
-      // console.log(values);
+      console.log(values);
       if (values.image !== null) {
          const recipe = new RecipeModel(
             values.name,
@@ -130,6 +130,8 @@ const AddRecipeForm = (props: Props) => {
                {formik.values.image && (
                   <PreviewImage file={formik.values.image} />
                )}
+               {/* Need to handle the error */}
+               {formik.errors.image && <h3>{formik.errors.image}</h3>}
 
                <TextField
                   select
