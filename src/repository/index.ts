@@ -21,18 +21,19 @@ export interface IRecipe {
    _id?: IdType | undefined;
 }
 
-
-export async function processResponse<T>(respPromise: Promise<Response>, _id?: IdType | undefined): Promise<T> {
+export async function processResponse<T>(
+   respPromise: Promise<Response>,
+   _id?: IdType | undefined
+): Promise<T> {
    try {
       const resp = await respPromise;
-      if (resp.ok) {
-         return await resp.json() as T;
-      } else if (resp.status === 404) {
-         throw new Error(_id ? `Comment with ID = ${_id} was not found.` : `Endpoint not found: ${(await respPromise).url}`);
-      } else {
-         throw new Error(`Error fetching entities: ${resp.status}: ${resp.statusText}`);
+      if (resp.status === 400) {
+         throw new Error(await resp.json());
+      } else if (!resp.ok) {
+         throw new Error("Something went wrong!");
       }
+      return (await resp.json()) as T;
    } catch (err: any) {
-      throw new Error(`Failed request: ${err.message}`);
+      throw new Error(err.message);
    }
 }
