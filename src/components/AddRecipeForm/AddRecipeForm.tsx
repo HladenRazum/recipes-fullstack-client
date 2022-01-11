@@ -13,7 +13,7 @@ import { CSSObject } from "@emotion/react";
 import { RecipesAPI } from "../../repository/recipe-api";
 import { IngredientsModel, RecipeModel } from "../../repository/recipe-model";
 
-interface Props {}
+interface Props { }
 
 interface FormikValues {
    name: string;
@@ -47,7 +47,7 @@ const AddRecipeForm = (props: Props) => {
    ) => {
       // if (values.ingredients.length > 0) {
       let ingredientArrays: IngredientsModel[] = [];
-      const ingredientsArray = values.ingredients.split("\n");
+      const ingredientsArray = values.ingredients.trim().split("\n");
       ingredientsArray.forEach((ingredientString) => {
          const ingredientCouple = ingredientString.trim().split(" - ");
          const ingredient: IngredientsModel = {
@@ -68,9 +68,9 @@ const AddRecipeForm = (props: Props) => {
       );
 
       console.log(recipe);
-      // RecipesAPI.createItem(recipe).then((data: RecipeModel) => {
-      //    console.log(data);
-      // });
+      RecipesAPI.createItem(recipe).then((data: RecipeModel) => {
+         console.log(data);
+      });
    };
 
    const CATEGORIES = ["dessert", "lunch", "dinner", "breakfast"];
