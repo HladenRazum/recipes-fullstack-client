@@ -9,8 +9,9 @@ import {
 } from "formik";
 import * as yup from "yup";
 import { Box, Button, MenuItem, Paper, TextField } from "@mui/material";
-import { Recipe } from "../../repository/recipe-repository";
 import { CSSObject } from "@emotion/react";
+import { RecipesAPI } from "../../repository/recipe-api";
+import { RecipeModel } from "../../repository/recipe-modle";
 
 interface Props { }
 
@@ -41,12 +42,20 @@ const AddRecipeForm = (props: Props) => {
       values: FormikValues,
       actions: FormikHelpers<FormikValues>
    ) => {
-      const recipe = new Recipe(
-         values.name,
-         values.instructions,
-         values.category
-      );
-      console.log(recipe);
+      const recipe = new RecipeModel(values.name,
+         values.category,
+         values.instructions);
+
+      RecipesAPI.createItem(recipe).then((data: RecipeModel) => {
+         console.log(data);
+      });
+
+      // const recipe = new Recipe(
+      //    values.name,
+      //    values.instructions,
+      //    values.category
+      // );
+      // console.log(recipe);
       // SEND A POST REQUEST TO DATABASE
    };
 

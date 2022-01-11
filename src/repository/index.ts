@@ -1,12 +1,19 @@
 export type IdType = string;
 
-export interface Repository<T, Z> {
-   getAllItems(items: T[]): Promise<T[]>;
-   add(item: T): Promise<T>;
-   removeById(id: Z): Promise<T>;
-   updateByID(id: Z): Promise<T>;
-}
+// export interface Repository<T, Z> {
+//    fetchItems(items: T[]): Promise<T[]>;
+//    createItem(item: T): Promise<T>;
+//    removeItemById(id: Z): Promise<T>;
+//    updateItemById(id: Z): Promise<T>;
+// }
 
+export interface ApiClient<T> {
+   getAllItems(): Promise<T[]>;
+   findItemById(id: IdType): Promise<T>;
+   createItem(T: T): Promise<T>;
+   updateItem(id: IdType): Promise<T>;
+   deleteItemById(id: IdType): Promise<T>;
+}
 
 export interface IRecipe {
    name: string;
@@ -15,3 +22,17 @@ export interface IRecipe {
 }
 
 
+export async function processResponse<T>(respPromise: Promise<Response>, _id?: IdType | undefined): Promise<T> {
+   try {
+      const resp = await respPromise;
+      if (resp.ok) {
+         return await resp.json() as T;
+      } else if (resp.status === 404) {
+         throw new Error(_id ? `Comment with ID = ${_id} was not found.` : `Endpoint not found: ${(await respPromise).url}`);
+      } else {
+         throw new Error(`Error fetching entities: ${resp.status}: ${resp.statusText}`);
+      }
+   } catch (err: any) {
+      throw new Error(`Failed request: ${err.message}`);
+   }
+}
