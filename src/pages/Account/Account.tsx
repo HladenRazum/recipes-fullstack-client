@@ -59,6 +59,15 @@ const Account = (props: Props) => {
       setMobileOpen(!mobileOpen);
    };
 
+   const MenuListItems = ["Reset Password"].map((text, index) => (
+      <ListItem button key={text}>
+         <ListItemIcon>
+            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+         </ListItemIcon>
+         <ListItemText primary={text} />
+      </ListItem>
+   ));
+
    const drawer = (
       <div>
          <Toolbar />
@@ -88,16 +97,7 @@ const Account = (props: Props) => {
             )}
          </List>
          <Divider />
-         <List>
-            {["Reset Password"].map((text, index) => (
-               <ListItem button key={text}>
-                  <ListItemIcon>
-                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-               </ListItem>
-            ))}
-         </List>
+         <List>{MenuListItems}</List>
       </div>
    );
 
@@ -139,7 +139,6 @@ const Account = (props: Props) => {
                }}
             >
                <Toolbar />
-
                <Outlet />
             </Box>
          </Box>

@@ -2,16 +2,8 @@ import React from "react";
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
 import * as yup from "yup";
 import { Box } from "@mui/material";
-import { RecipeClass } from "../../repository/recipe-repository";
-import { addNewRecipe } from "../../api/index";
-
-<<<<<<< HEAD
-import { addNewRecipe } from "../../api/index";
 
 interface Props {}
-=======
-interface Props { }
->>>>>>> ab999a12cfca9378ff4d1a5c7099f01cdde8ae66
 
 interface FormikValues {
    name: string;
@@ -33,23 +25,6 @@ const validationSchema = yup.object({
       .string()
       .required("Instructions are required")
       .min(2, "Instructions must be at least 20 characters long"),
-<<<<<<< HEAD
-   ingredient1: yup.string().required("Ingredient is required"),
-   ingredient2: yup.string().required("Ingredient is required"),
-   ingredient3: yup.string().required("Ingredient is required"),
-   ingredientMeasure1: yup.string().required("Ingredient is required"),
-   ingredientMeasure2: yup.string().required("Ingredient is required"),
-   ingredientMeasure3: yup.string().required("Ingredient is required"),
-=======
-
-   // ingredient1: yup.string().required("Ingredient is required"),
-   // ingredient2: yup.string().required("Ingredient is required"),
-   // ingredient3: yup.string().required("Ingredient is required"),
-
-   // ingredientMeasure1: yup.string().required("Ingredient is required"),
-   // ingredientMeasure2: yup.string().required("Ingredient is required"),
-   // ingredientMeasure3: yup.string().required("Ingredient is required"),
->>>>>>> ab999a12cfca9378ff4d1a5c7099f01cdde8ae66
 });
 
 const initialValues: FormikValues = {
@@ -63,15 +38,13 @@ const AddRecipeForm = (props: Props) => {
       values: FormikValues,
       actions: FormikHelpers<FormikValues>
    ) => {
-      const recipe = new RecipeClass(
-         values.name,
-         values.category,
-         values.instructions,
-      );
-
-      console.log(recipe);
+      // const recipe = new RecipeClass(
+      //    values.name,
+      //    values.category,
+      //    values.instructions,
+      // );
+      // console.log(recipe);
       // SEND A POST REQUEST TO DATABASE
-      addNewRecipe(recipe);
    };
 
    return (
@@ -84,7 +57,7 @@ const AddRecipeForm = (props: Props) => {
             <Formik
                initialValues={initialValues}
                onSubmit={submitHandler}
-               // validationSchema={validationSchema}
+               validationSchema={validationSchema}
             >
                <Form>
                   <div>
@@ -92,60 +65,22 @@ const AddRecipeForm = (props: Props) => {
                      <Field id="name" name="name" />
                   </div>
                   <div>
-<<<<<<< HEAD
                      <label>Category</label>
-                     <Field as="select" name="category" id="category">
-                        <option value="Desserts">Desserts</option>
-                        <option value="Breakfast">Breakfast</option>
-                        <option value="Launch">Launch</option>
-=======
                      <Field as="select" id="category" name="category">
                         <option value="dessert">dessert</option>
                         <option value="breakfast">breakfast</option>
                         <option value="dinner">dinner</option>
->>>>>>> ab999a12cfca9378ff4d1a5c7099f01cdde8ae66
                      </Field>
                   </div>
                   <div>
-                     <label>Instructions</label>
+                     <label>Instructions to follow</label>
                      <Field
                         as="textarea"
                         id="instructions"
                         name="instructions"
                      />
                   </div>
-                  <div>
-                     <label>Image url</label>
-                     <Field id="image" name="image" />
-                  </div>
 
-                  <div>
-                     <label>Ingedient</label>
-                     <Field id="ingredient1" name="ingredient1" />
-                  </div>
-
-                  <div>
-                     <label>Ingedient</label>
-                     <Field id="ingredient2" name="ingredient2" />
-                  </div>
-
-                  <div>
-                     <label>Ingedient</label>
-                     <Field id="ingredient3" name="ingredient3" />
-                  </div>
-
-                  <div>
-                     <label>ingredient Measure</label>
-                     <Field id="ingredientMeasure1" name="ingredientMeasure1" />
-                  </div>
-                  <div>
-                     <label>ingredient Measure</label>
-                     <Field id="ingredientMeasure2" name="ingredientMeasure2" />
-                  </div>
-                  <div>
-                     <label>ingredient Measure</label>
-                     <Field id="ingredientMeasure3" name="ingredientMeasure3" />
-                  </div>
                   <button type="submit">Create recipe</button>
                </Form>
             </Formik>

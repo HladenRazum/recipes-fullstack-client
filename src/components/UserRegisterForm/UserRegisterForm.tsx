@@ -2,8 +2,6 @@ import { Grid, TextField } from "@mui/material";
 import React, { FormEvent } from "react";
 import { Formik, Form, Field, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { UserClass } from "../../repository/user-repository";
-import { addNewUser } from "../../api";
 
 interface Props {}
 
@@ -32,18 +30,15 @@ const handleSubmit = (
    actions: FormikHelpers<MyFormValues>
 ) => {
    // Send a post request
-   const user = new UserClass(
-      values.username,
-      values.password,
-      values.email,
-      "REGISTERED"
-   );
-
+   // const user = new UserClass(
+   //    values.username,
+   //    values.password,
+   //    values.email,
+   //    "REGISTERED"
+   // );
    // user.create();
-   addNewUser(user);
-
    // Reset the form
-   actions.resetForm();
+   // actions.resetForm();
 };
 
 const UserRegisterForm = (props: Props) => {
