@@ -8,22 +8,17 @@ import {
    useFormik,
 } from "formik";
 import * as yup from "yup";
-import { Box, TextField } from "@mui/material";
+import { Box, Button, MenuItem, Paper, TextField } from "@mui/material";
 import { Recipe } from "../../repository/recipe-repository";
+import { CSSObject } from "@emotion/react";
 
-interface Props {}
+interface Props { }
 
 interface FormikValues {
    name: string;
    instructions: string;
    category: string;
-   // image: string;
-   // ingredient1: string;
-   // ingredient2: string;
-   // ingredient3: string;
-   // ingredientMeasure1: string;
-   // ingredientMeasure2: string;
-   // ingredientMeasure3: string;
+
 }
 
 const validationSchema = yup.object({
@@ -32,7 +27,7 @@ const validationSchema = yup.object({
    instructions: yup
       .string()
       .required("Instructions are required")
-      .min(2, "Instructions must be at least 20 characters long"),
+      .min(20, "Instructions must be at least 20 characters long"),
 });
 
 const initialValues: FormikValues = {
@@ -56,10 +51,11 @@ const AddRecipeForm = (props: Props) => {
    };
 
    const CATEGORIES = ["dessert", "lunch", "dinner", "breakfast"];
-   const categoryOptions = CATEGORIES.map((category) => (
-      <option key={category} value={category.toLowerCase()}>
-         {category}
-      </option>
+   const categoryOptions = CATEGORIES.map((option) => (
+      <MenuItem key={option} value={option.toLocaleLowerCase()}>
+         {option}
+      </MenuItem>
+
    ));
 
    const formik = useFormik({
@@ -68,15 +64,45 @@ const AddRecipeForm = (props: Props) => {
       onSubmit: submitHandler,
    });
 
+   const inputStyles: CSSObject = {
+      marginBottom: 2,
+   };
+
+   const selectStyles: CSSObject = {
+      minWidth: 150,
+      marginBottom: 2,
+   };
+
    return (
       <React.Fragment>
-         <Box
+         <Paper
             sx={{
                maxWidth: 600,
+               padding: 2,
             }}
          >
             <form onSubmit={formik.handleSubmit}>
+
+
                <TextField
+                  select
+                  label="Category"
+                  required
+                  name="category"
+                  id="category"
+                  value={formik.values.category}
+                  onChange={formik.handleChange}
+                  error={formik.touched.category && Boolean(formik.errors.category)}
+                  helperText={formik.touched.category && formik.errors.category}
+                  size="small"
+                  sx={selectStyles}
+
+               >
+                  {categoryOptions}
+               </TextField>
+
+               <TextField
+                  fullWidth
                   label="Recipe Name"
                   required
                   name="name"
@@ -85,42 +111,31 @@ const AddRecipeForm = (props: Props) => {
                   onChange={formik.handleChange}
                   error={formik.touched.name && Boolean(formik.errors.name)}
                   helperText={formik.touched.name && formik.errors.name}
+                  size="small"
+                  sx={inputStyles}
                />
+
+               <TextField
+                  fullWidth
+                  label="Instructions"
+                  required
+                  name="instructions"
+                  id="instructions"
+                  value={formik.values.instructions}
+                  onChange={formik.handleChange}
+                  error={formik.touched.instructions && Boolean(formik.errors.instructions)}
+                  helperText={formik.touched.instructions && formik.errors.instructions}
+                  size="small"
+                  sx={inputStyles}
+               />
+
+               <Button variant="contained" type="submit">Create recipe</Button>
+
             </form>
 
-            {/* <Formik
-               initialValues={initialValues}
-               onSubmit={submitHandler}
-               validationSchema={validationSchema}
-            >
-               <Form>
-                  <div>
-                     <label>Recipe Name</label>
-                     <Field id="name" name="name" />
-                  </div>
-                  <div>
-                     <label>Category</label>
-                     <Field as="select" id="category" name="category">
-                        <option value="default" disabled>
-                           Select a category...
-                        </option>
-                        {categoryOptions}
-                     </Field>
-                  </div>
-                  <div>
-                     <label>Instructions to follow</label>
-                     <Field
-                        as="textarea"
-                        id="instructions"
-                        name="instructions"
-                     />
-                  </div>
 
-                  <button type="submit">Create recipe</button>
-               </Form>
-            </Formik> */}
-         </Box>
-      </React.Fragment>
+         </Paper>
+      </React.Fragment >
    );
 };
 

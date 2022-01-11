@@ -73,7 +73,7 @@ const Account = (props: Props) => {
          <Toolbar />
          <Divider />
          <List>
-            {["Pannel", "My Recipes", "Add Recipe", "My Details"].map(
+            {["Pannel", "My Recipes", "Add Recipe"].map(
                (text, index) => (
                   <ListItem button key={text}>
                      <ListItemIcon>
