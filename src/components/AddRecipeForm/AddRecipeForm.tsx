@@ -23,7 +23,7 @@ interface FormikValues {
    name: string;
    instructions: string;
    category: string;
-   image: File | null;
+   image: Blob | null;
    ingredients: string;
 }
 
