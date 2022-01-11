@@ -21,7 +21,7 @@ const NotFoundPage = (props: Props) => {
             </Typography>
             <Button
                onClick={navigateBack}
-               variant="outlined"
+               variant="contained"
                sx={{
                   display: "block",
                   margin: "3em auto",

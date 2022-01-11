@@ -14,4 +14,9 @@ code {
 
 body {
    min-height: 100vh;
+   background-color: #644c33;
+}
+
+a {
+   color: #644c33;
 }

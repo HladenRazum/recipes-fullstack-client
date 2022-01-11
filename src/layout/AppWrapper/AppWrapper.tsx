@@ -9,7 +9,7 @@ const AppWrapper = (props: Props) => {
    return (
       <Box
          sx={{
-            backgroundColor: "#dddddd",
+            backgroundColor: "secondary.main",
             width: "100%",
             minHeight: "100vh",
          }}

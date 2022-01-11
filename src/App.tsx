@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home/Home";
 import { Navigation } from "./components/Navigation/Navigation";
 import AppWrapper from "./layout/AppWrapper/AppWrapper";
+import CreateRecipe from "./pages/CreateRecipe/CreateRecipe";
 
 const Account = React.lazy(() => import("./pages/Account/Account"));
 const RegisterPage = React.lazy(
@@ -22,7 +23,12 @@ const App = () => {
                <Navigation />
                <Routes>
                   <Route path="/" element={<Home />} />
-                  <Route path="/account" element={<Account />} />
+                  <Route path="/account" element={<Account />}>
+                     <Route
+                        path="/account/add-recipe"
+                        element={<CreateRecipe />}
+                     />
+                  </Route>
                   <Route path="/register" element={<RegisterPage />} />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/recipes" element={<RecipesPage />}>

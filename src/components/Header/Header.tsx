@@ -6,7 +6,7 @@ interface Props {}
 const boxStyles: CSSObject = {
    height: 330,
    // width: "100%",
-   background: "linear-gradient(to right, #fffbfa, 64%, rgb(61, 107, 179))",
+   background: "linear-gradient(to right, #feecd2, 64%,  #0a0a0a)",
    margin: "3em 1em",
 };
 

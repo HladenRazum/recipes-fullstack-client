@@ -21,10 +21,6 @@ const links: Links[] = [
    },
 
    {
-      title: "register",
-      linkTo: "/register",
-   },
-   {
       title: "login",
       linkTo: "/login",
    },
@@ -56,6 +52,7 @@ export const Navigation = (props: Props) => {
             component="ul"
             sx={{
                display: "flex",
+               justifyContent: "flex-end",
                padding: 3,
                backgroundColor: "#fff",
                marginTop: 0,

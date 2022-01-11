@@ -28,11 +28,9 @@ const validationSchema = yup.object({
       .string()
       .required("Instructions are required")
       .min(2, "Instructions must be at least 20 characters long"),
-
    ingredient1: yup.string().required("Ingredient is required"),
    ingredient2: yup.string().required("Ingredient is required"),
    ingredient3: yup.string().required("Ingredient is required"),
-
    ingredientMeasure1: yup.string().required("Ingredient is required"),
    ingredientMeasure2: yup.string().required("Ingredient is required"),
    ingredientMeasure3: yup.string().required("Ingredient is required"),
