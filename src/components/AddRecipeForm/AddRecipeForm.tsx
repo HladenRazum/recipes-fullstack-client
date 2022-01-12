@@ -8,7 +8,7 @@ import {
    useFormik,
 } from "formik";
 import * as yup from "yup";
-import { Box, Button, MenuItem, Paper, TextField } from "@mui/material";
+import { Box, Button, MenuItem, Paper, TextField, Typography } from "@mui/material";
 import { CSSObject } from "@emotion/react";
 import { RecipesAPI } from "../../repository/recipe-api";
 import { IngredientsModel, RecipeModel } from "../../repository/recipe-model";
@@ -102,7 +102,7 @@ const AddRecipeForm = (props: Props) => {
 
    const selectStyles: CSSObject = {
       minWidth: 150,
-      marginBottom: 2,
+      margin: "1em 0",
    };
 
    return (
@@ -131,8 +131,8 @@ const AddRecipeForm = (props: Props) => {
                   <PreviewImage file={formik.values.image} />
                )}
                {/* Need to handle the error */}
-               {formik.errors.image && <h3>{formik.errors.image}</h3>}
-
+               {formik.errors.image && <Typography variant="subtitle1" color="error" >{formik.errors.image}</Typography>}
+               <br />
                <TextField
                   select
                   label="Category"
