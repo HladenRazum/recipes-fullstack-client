@@ -23,13 +23,13 @@ interface FormikValues {
    name: string;
    instructions: string;
    category: string;
-   image: Blob | null;
+   recipe_img: Blob | null;
    ingredients: string;
 }
 
 const validationSchema = yup.object({
    name: yup.string().required("Name is required"),
-   image: yup
+   recipe_img: yup
       .mixed()
       .nullable()
       .required()
@@ -53,7 +53,7 @@ const initialValues: FormikValues = {
    name: "",
    instructions: "",
    category: "",
-   image: null,
+   recipe_img: null,
    ingredients: "",
 };
 
@@ -66,21 +66,27 @@ const AddRecipeForm = (props: Props) => {
       const ingredientArrays: IngredientsModel[] =
          getValuePairsFromStringOfIngredients(values.ingredients);
 
-      console.log(values);
-      if (values.image !== null) {
-         const recipe = new RecipeModel(
-            values.name,
-            values.category,
-            values.instructions,
-            values.image,
-            ingredientArrays
-         );
-         console.log(recipe);
-      }
+      if (values.recipe_img === null) return;
 
-      // RecipesAPI.createItem(recipe).then((data: RecipeModel) => {
-      //    console.log(data);
-      // });
+      // console.log(values);
+      const recipe = new RecipeModel(
+         values.name,
+         values.category,
+         values.instructions,
+         values.recipe_img,
+         ingredientArrays
+      );
+      // console.log(recipe);
+
+
+      const formData = new FormData();
+      console.log(formData);
+
+
+
+      RecipesAPI.createItem(recipe).then((data: RecipeModel) => {
+         console.log(data);
+      });
    };
 
    const CATEGORIES = ["dessert", "lunch", "dinner", "breakfast"];
@@ -118,20 +124,20 @@ const AddRecipeForm = (props: Props) => {
                   type="file"
                   required
                   accept={SUPPORTED_FORMATS}
-                  id="image"
-                  name="image"
+                  id="recipe_img"
+                  name="recipe_img"
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
                      if (e.target.files === null) {
                         return;
                      }
-                     formik.setFieldValue("image", e.target.files[0]);
+                     formik.setFieldValue("recipe_img", e.target.files[0]);
                   }}
                />
-               {formik.values.image && (
-                  <PreviewImage file={formik.values.image} />
+               {formik.values.recipe_img && (
+                  <PreviewImage file={formik.values.recipe_img} />
                )}
                {/* Need to handle the error */}
-               {formik.errors.image && <Typography variant="subtitle1" color="error" >{formik.errors.image}</Typography>}
+               {formik.errors.recipe_img && <Typography variant="subtitle1" color="error" >{formik.errors.recipe_img}</Typography>}
                <br />
                <TextField
                   select
