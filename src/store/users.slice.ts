@@ -11,7 +11,12 @@ interface UsersState {
 }
 
 const initialState: UsersState = {
-   users: [],
+   users: [
+      {
+         username: "Imeba",
+         password: "123123123"
+      }
+   ],
 };
 
 const usersSlice = createSlice({

@@ -2,7 +2,8 @@ import { Button, Container, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-interface Props {}
+
+interface Props { }
 
 const NotFoundPage = (props: Props) => {
    const navigate = useNavigate();
@@ -29,6 +30,7 @@ const NotFoundPage = (props: Props) => {
             >
                Back
             </Button>
+
          </Container>
       </React.Fragment>
    );
