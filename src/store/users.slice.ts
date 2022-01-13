@@ -7,7 +7,7 @@ export interface IUser {
 }
 
 interface UsersState {
-   users: IUser[] | [];
+   users: IUser[];
 }
 
 const initialState: UsersState = {
@@ -19,7 +19,9 @@ const usersSlice = createSlice({
    initialState,
    reducers: {
       createUser: (state, action: PayloadAction<IUser>) => {
-         state.users.push(action.payload);
+         if (state.users.length) {
+            state.users.push(action.payload);
+         }
       },
       // deleteUser(state, action) {
       // },
