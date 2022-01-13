@@ -1,7 +1,7 @@
-import { Grid, TextField } from "@mui/material";
+import { CSSObject, Grid, Paper, TextField, Button } from "@mui/material";
 import React, { FormEvent } from "react";
-import { Formik, Form, Field, FormikHelpers } from "formik";
-import * as Yup from "yup";
+import { Formik, Form, Field, FormikHelpers, useFormik } from "formik";
+import * as yup from "yup";
 
 interface Props {}
 
@@ -25,41 +25,90 @@ initialValues = {
    password: "",
 };
 
-const handleSubmit = (
+const validationSchema = yup.object({
+   username: yup
+      .string()
+      .required("Username is required")
+      .min(5, "Username must be at least 5 characters long"),
+   password: yup
+      .string()
+      .required("Password is required")
+      .min(5, "Password must be at least 5 characters long."),
+   // email: yup.required("Email is required"),
+   //  server validation here
+   // check if object is email
+});
+
+const submitHandler = (
    values: MyFormValues,
    actions: FormikHelpers<MyFormValues>
 ) => {
-   // Send a post request
-   // const user = new UserClass(
-   //    values.username,
-   //    values.password,
-   //    values.email,
-   //    "REGISTERED"
-   // );
-   // user.create();
-   // Reset the form
-   // actions.resetForm();
+   console.log(values);
+};
+const inputStyles: CSSObject = {
+   marginBottom: 2,
 };
 
 const UserRegisterForm = (props: Props) => {
+   const formik = useFormik({
+      initialValues,
+      validationSchema,
+      onSubmit: submitHandler,
+   });
+
    return (
-      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-         <Form>
-            <div>
-               <label>Username</label>
-               <Field id="username" name="username" />
-            </div>
-            <div>
-               <label>Password</label>
-               <Field id="password" name="password" />
-            </div>
-            <div>
-               <label>Email</label>
-               <Field id="email" name="email" className="formik-field" />
-            </div>
-            <button type="submit">Submit</button>
-         </Form>
-      </Formik>
+      <Paper
+         sx={{
+            maxWidth: 600,
+            padding: 2,
+         }}
+      >
+         <form onSubmit={formik.handleSubmit}>
+            <TextField
+               sx={inputStyles}
+               label="Username"
+               fullWidth
+               size="small"
+               id="username"
+               name="username"
+               onChange={formik.handleChange}
+               error={
+                  formik.touched.username && Boolean(formik.errors.username)
+               }
+               helperText={formik.touched.username && formik.errors.username}
+            />
+
+            <TextField
+               sx={inputStyles}
+               label="Password"
+               fullWidth
+               size="small"
+               id="password"
+               name="password"
+               onChange={formik.handleChange}
+               error={
+                  formik.touched.password && Boolean(formik.errors.password)
+               }
+               helperText={formik.touched.password && formik.errors.password}
+            />
+
+            <TextField
+               sx={inputStyles}
+               label="Email"
+               fullWidth
+               size="small"
+               id="email"
+               name="email"
+               onChange={formik.handleChange}
+               error={formik.touched.email && Boolean(formik.errors.email)}
+               helperText={formik.touched.email && formik.errors.email}
+            />
+
+            <Button type="submit" variant="contained">
+               Submit
+            </Button>
+         </form>
+      </Paper>
    );
 };
 
