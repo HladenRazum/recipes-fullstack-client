@@ -6,13 +6,7 @@ interface Props {}
 const PersonalData = (props: Props) => {
    return (
       <Container>
-         <Paper
-            sx={{
-               maxWidth: 480,
-               padding: 2,
-               margin: "3em auto",
-            }}
-         ></Paper>
+         <Typography variant="h4">Account Details</Typography>
       </Container>
    );
 };

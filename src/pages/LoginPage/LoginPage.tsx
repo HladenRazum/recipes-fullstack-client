@@ -2,6 +2,7 @@ import { Container, Typography, Box, Paper } from "@mui/material";
 import React from "react";
 import UserLoginForm from "../../components/UserLoginForm/UserLoginForm";
 import { Link } from "react-router-dom";
+import StyledPaper from "../../components/StyledPaper/StyledPaper";
 
 interface Props {}
 
@@ -9,13 +10,7 @@ const LoginPage = (props: Props) => {
    return (
       <React.Fragment>
          <Container>
-            <Paper
-               sx={{
-                  maxWidth: 480,
-                  padding: 2,
-                  margin: "3em auto",
-               }}
-            >
+            <StyledPaper>
                <Typography variant="h5" mb={3}>
                   Login
                </Typography>
@@ -27,7 +22,7 @@ const LoginPage = (props: Props) => {
                      Create a new account
                   </Typography>
                </Link>
-            </Paper>
+            </StyledPaper>
          </Container>
       </React.Fragment>
    );
