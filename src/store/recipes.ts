@@ -1,23 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { USERS_DATA } from "./fakeDATA";
+interface Recipe {
+   name: string;
+   instructions: string;
+}
 
-export type Value = string[] | [];
+interface RecipesState {
+   value: Recipe[];
+}
 
-const initialState = {
-   value: USERS_DATA
+const initialState: RecipesState = {
+   value: []
 };
 
 export const recipesSlice = createSlice({
    name: "recipes",
    initialState: initialState,
    reducers: {
-      addUser: (state, action) => {
+      addRecipe: (state, action: PayloadAction<Recipe>) => {
          state.value.push(action.payload);
       }
    }
 });
-
 
 export const recipesActions = recipesSlice.actions;
 export default recipesSlice.reducer;

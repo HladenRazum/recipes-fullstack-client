@@ -1,9 +1,10 @@
-import React from "react";
-import { Field, Form, Formik, FormikHelpers } from "formik";
-import { useDispatch } from "react-redux";
-import { authenticationActions } from "../../store/auth";
+import { FormikHelpers, useFormik } from "formik";
+import * as yup from "yup";
+import { CSSObject } from "@emotion/react";
+import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
-interface Props {}
+interface Props { }
 
 interface FormikValues {
    username: string;
@@ -15,36 +16,74 @@ interface FormikErrors {
    password?: string;
 }
 
+
+const inputStyles: CSSObject = {
+   marginBottom: 2,
+};
+
+
 const initialValues: FormikValues = {
    username: "",
    password: "",
 };
 
+const validationSchema = yup.object({});
+
 const UserLoginForm = (props: Props) => {
-   const dispatch = useDispatch();
 
    const submitHandler = (
       values: FormikValues,
       actions: FormikHelpers<FormikValues>
    ) => {
+
+      // Validate from the server
       // Login the user
       // Call the function from redux
    };
 
+   const formik = useFormik({
+      initialValues,
+      validationSchema,
+      onSubmit: submitHandler,
+   });
+
    return (
-      <Formik initialValues={initialValues} onSubmit={submitHandler}>
-         <Form>
-            <div>
-               <label>username</label>
-               <Field id="username" name="username" />
-            </div>
-            <div>
-               <label>password</label>
-               <Field id="password" name="password" type="password" />
-            </div>
-            <button type="submit">Login</button>
-         </Form>
-      </Formik>
+
+      <form onSubmit={formik.handleSubmit}>
+         <TextField
+            sx={inputStyles}
+            label="Username"
+            fullWidth
+            size="small"
+            id="username"
+            name="username"
+            onChange={formik.handleChange}
+            error={
+               formik.touched.username && Boolean(formik.errors.username)
+            }
+            helperText={formik.touched.username && formik.errors.username}
+         />
+
+         <TextField
+            sx={inputStyles}
+            label="Password"
+            fullWidth
+            size="small"
+            id="password"
+            name="password"
+            onChange={formik.handleChange}
+            error={
+               formik.touched.password && Boolean(formik.errors.password)
+            }
+            helperText={formik.touched.password && formik.errors.password}
+         />
+
+
+         <Button type="submit" variant="contained" sx={{ my: 3 }}>
+            Submit
+         </Button>
+
+      </form>
    );
 };
 

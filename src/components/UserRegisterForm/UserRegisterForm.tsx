@@ -1,9 +1,10 @@
-import { CSSObject, Grid, Paper, TextField, Button } from "@mui/material";
+import { CSSObject, Grid, Paper, TextField, Button, Typography } from "@mui/material";
 import React, { FormEvent } from "react";
 import { Formik, Form, Field, FormikHelpers, useFormik } from "formik";
 import * as yup from "yup";
+import { Link } from "react-router-dom";
 
-interface Props {}
+interface Props { }
 
 interface MyFormValues {
    username: string;
@@ -57,58 +58,54 @@ const UserRegisterForm = (props: Props) => {
    });
 
    return (
-      <Paper
-         sx={{
-            maxWidth: 600,
-            padding: 2,
-         }}
-      >
-         <form onSubmit={formik.handleSubmit}>
-            <TextField
-               sx={inputStyles}
-               label="Username"
-               fullWidth
-               size="small"
-               id="username"
-               name="username"
-               onChange={formik.handleChange}
-               error={
-                  formik.touched.username && Boolean(formik.errors.username)
-               }
-               helperText={formik.touched.username && formik.errors.username}
-            />
 
-            <TextField
-               sx={inputStyles}
-               label="Password"
-               fullWidth
-               size="small"
-               id="password"
-               name="password"
-               onChange={formik.handleChange}
-               error={
-                  formik.touched.password && Boolean(formik.errors.password)
-               }
-               helperText={formik.touched.password && formik.errors.password}
-            />
+      <form onSubmit={formik.handleSubmit}>
+         <TextField
+            sx={inputStyles}
+            label="Username"
+            fullWidth
+            size="small"
+            id="username"
+            name="username"
+            onChange={formik.handleChange}
+            error={
+               formik.touched.username && Boolean(formik.errors.username)
+            }
+            helperText={formik.touched.username && formik.errors.username}
+         />
 
-            <TextField
-               sx={inputStyles}
-               label="Email"
-               fullWidth
-               size="small"
-               id="email"
-               name="email"
-               onChange={formik.handleChange}
-               error={formik.touched.email && Boolean(formik.errors.email)}
-               helperText={formik.touched.email && formik.errors.email}
-            />
+         <TextField
+            sx={inputStyles}
+            label="Password"
+            fullWidth
+            size="small"
+            id="password"
+            name="password"
+            onChange={formik.handleChange}
+            error={
+               formik.touched.password && Boolean(formik.errors.password)
+            }
+            helperText={formik.touched.password && formik.errors.password}
+         />
 
-            <Button type="submit" variant="contained">
-               Submit
-            </Button>
-         </form>
-      </Paper>
+         <TextField
+            sx={inputStyles}
+            label="Email"
+            fullWidth
+            size="small"
+            id="email"
+            name="email"
+            onChange={formik.handleChange}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+         />
+
+         <Button type="submit" variant="contained" sx={{ my: 3 }}>
+            Submit
+         </Button>
+      </form>
+
+
    );
 };
 

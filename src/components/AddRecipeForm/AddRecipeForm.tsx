@@ -1,15 +1,10 @@
 import React, { ChangeEvent, ChangeEventHandler } from "react";
 import {
-   ErrorMessage,
-   Field,
-   Form,
-   Formik,
    FormikHelpers,
    useFormik,
 } from "formik";
 import * as yup from "yup";
 import {
-   Box,
    Button,
    MenuItem,
    Paper,
@@ -24,7 +19,7 @@ import PreviewImage from "./PreviewImage/PreviewImage";
 
 const SUPPORTED_FORMATS = "image/png, image/jpeg";
 
-interface Props {}
+interface Props { }
 
 interface FormikValues {
    name: string;
@@ -117,115 +112,109 @@ const AddRecipeForm = (props: Props) => {
 
    return (
       <React.Fragment>
-         <Paper
-            sx={{
-               maxWidth: 600,
-               padding: 2,
-            }}
-         >
-            <form onSubmit={formik.handleSubmit}>
-               <input
-                  type="file"
-                  required
-                  accept={SUPPORTED_FORMATS}
-                  id="recipe_img"
-                  name="recipe_img"
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                     if (e.target.files === null) {
-                        return;
-                     }
-                     formik.setFieldValue("recipe_img", e.target.files[0]);
-                  }}
-               />
-               {formik.values.recipe_img && (
-                  <PreviewImage file={formik.values.recipe_img} />
-               )}
-               {/* Need to handle the error */}
-               {formik.errors.recipe_img && (
-                  <Typography variant="subtitle1" color="error">
-                     {formik.errors.recipe_img}
-                  </Typography>
-               )}
-               <br />
-               <TextField
-                  select
-                  label="Category"
-                  required
-                  name="category"
-                  id="category"
-                  value={formik.values.category}
-                  onChange={formik.handleChange}
-                  error={
-                     formik.touched.category && Boolean(formik.errors.category)
-                  }
-                  helperText={formik.touched.category && formik.errors.category}
-                  size="small"
-                  sx={selectStyles}
-               >
-                  {categoryOptions}
-               </TextField>
 
-               <TextField
-                  fullWidth
-                  label="Recipe Name"
-                  required
-                  name="name"
-                  id="name"
-                  value={formik.values.name}
-                  onChange={formik.handleChange}
-                  error={formik.touched.name && Boolean(formik.errors.name)}
-                  helperText={formik.touched.name && formik.errors.name}
-                  size="small"
-                  sx={inputStyles}
-               />
+         <form onSubmit={formik.handleSubmit}>
+            <input
+               type="file"
+               required
+               accept={SUPPORTED_FORMATS}
+               id="recipe_img"
+               name="recipe_img"
+               onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                  if (e.target.files === null) {
+                     return;
+                  }
+                  formik.setFieldValue("recipe_img", e.target.files[0]);
+               }}
+            />
+            {formik.values.recipe_img && (
+               <PreviewImage file={formik.values.recipe_img} />
+            )}
+            {/* Need to handle the error */}
+            {formik.errors.recipe_img && (
+               <Typography variant="subtitle1" color="error">
+                  {formik.errors.recipe_img}
+               </Typography>
+            )}
+            <br />
+            <TextField
+               select
+               label="Category"
+               required
+               name="category"
+               id="category"
+               value={formik.values.category}
+               onChange={formik.handleChange}
+               error={
+                  formik.touched.category && Boolean(formik.errors.category)
+               }
+               helperText={formik.touched.category && formik.errors.category}
+               size="small"
+               sx={selectStyles}
+            >
+               {categoryOptions}
+            </TextField>
 
-               <TextField
-                  minRows={6}
-                  multiline
-                  fullWidth
-                  label="Instructions"
-                  required
-                  name="instructions"
-                  id="instructions"
-                  value={formik.values.instructions}
-                  onChange={formik.handleChange}
-                  error={
-                     formik.touched.instructions &&
-                     Boolean(formik.errors.instructions)
-                  }
-                  helperText={
-                     formik.touched.instructions && formik.errors.instructions
-                  }
-                  size="small"
-                  sx={inputStyles}
-               />
+            <TextField
+               fullWidth
+               label="Recipe Name"
+               required
+               name="name"
+               id="name"
+               value={formik.values.name}
+               onChange={formik.handleChange}
+               error={formik.touched.name && Boolean(formik.errors.name)}
+               helperText={formik.touched.name && formik.errors.name}
+               size="small"
+               sx={inputStyles}
+            />
 
-               <TextField
-                  minRows={6}
-                  multiline
-                  fullWidth
-                  label="Ingredients (1 pair per row) / ex: Water - 200ml"
-                  required
-                  name="ingredients"
-                  id="ingredients"
-                  value={formik.values.ingredients}
-                  onChange={formik.handleChange}
-                  error={
-                     formik.touched.ingredients &&
-                     Boolean(formik.errors.ingredients)
-                  }
-                  helperText={
-                     formik.touched.ingredients && formik.errors.ingredients
-                  }
-                  size="small"
-                  sx={inputStyles}
-               />
+            <TextField
+               minRows={6}
+               multiline
+               fullWidth
+               label="Instructions"
+               required
+               name="instructions"
+               id="instructions"
+               value={formik.values.instructions}
+               onChange={formik.handleChange}
+               error={
+                  formik.touched.instructions &&
+                  Boolean(formik.errors.instructions)
+               }
+               helperText={
+                  formik.touched.instructions && formik.errors.instructions
+               }
+               size="small"
+               sx={inputStyles}
+            />
 
-               <Button variant="contained" type="submit">
-                  Create recipe
-               </Button>
-            </form>
-         </Paper>
+            <TextField
+               minRows={6}
+               multiline
+               fullWidth
+               label="Ingredients (1 pair per row) / ex: Water - 200ml"
+               required
+               name="ingredients"
+               id="ingredients"
+               value={formik.values.ingredients}
+               onChange={formik.handleChange}
+               error={
+                  formik.touched.ingredients &&
+                  Boolean(formik.errors.ingredients)
+               }
+               helperText={
+                  formik.touched.ingredients && formik.errors.ingredients
+               }
+               size="small"
+               sx={inputStyles}
+            />
+
+            <Button variant="contained" type="submit">
+               Create recipe
+            </Button>
+         </form>
       </React.Fragment>
    );
 };

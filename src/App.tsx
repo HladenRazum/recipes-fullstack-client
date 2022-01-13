@@ -5,7 +5,7 @@ import { Navigation } from "./components/Navigation/Navigation";
 import AppWrapper from "./layout/AppWrapper/AppWrapper";
 import CreateRecipe from "./pages/Account/CreateRecipe/CreateRecipe";
 import PersonalData from "./pages/Account/PersonalData/PersonalData";
-import Footer from "./components/Footer/Footer";
+import UsersRecipes from "./pages/Account/UsersRecipes/UsersRecipes";
 
 const Account = React.lazy(() => import("./pages/Account/Account"));
 const RegisterPage = React.lazy(
@@ -29,6 +29,11 @@ const App = () => {
                      <Route
                         path="/account/add-recipe"
                         element={<CreateRecipe />}
+                     />
+
+                     <Route
+                        path="/account/my-recipes"
+                        element={<UsersRecipes />}
                      />
                      <Route index element={<PersonalData />} />
                   </Route>
