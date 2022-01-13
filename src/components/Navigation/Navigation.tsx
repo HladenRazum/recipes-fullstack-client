@@ -52,7 +52,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
    },
 }));
 
-interface Props {}
+interface Props { }
 
 interface Links {
    title: string;
@@ -101,9 +101,9 @@ export const Navigation = (props: Props) => {
    };
 
    return (
-      <Box sx={{ flexGrow: 1 }}>
-         <AppBar position="static">
-            <Toolbar>
+      <Box position="sticky">
+         <AppBar  >
+            <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                <IconButton
                   size="large"
                   edge="start"
@@ -119,9 +119,19 @@ export const Navigation = (props: Props) => {
                      sx={{
                         display: "flex",
                         justifyContent: "flex-end",
+                        alignItems: "center",
                         marginTop: 0,
                      }}
                   >
+                     <Search>
+                        <SearchIconWrapper>
+                           <SearchIcon />
+                        </SearchIconWrapper>
+                        <StyledInputBase
+                           placeholder="Search…"
+                           inputProps={{ "aria-label": "search" }}
+                        />
+                     </Search>
                      {links.map((link) => (
                         <NavLink
                            key={link.title}
@@ -137,17 +147,9 @@ export const Navigation = (props: Props) => {
                      ))}
                   </Box>
                </nav>{" "}
-               <Search>
-                  <SearchIconWrapper>
-                     <SearchIcon />
-                  </SearchIconWrapper>
-                  <StyledInputBase
-                     placeholder="Search…"
-                     inputProps={{ "aria-label": "search" }}
-                  />
-               </Search>
+
             </Toolbar>
          </AppBar>
-      </Box>
+      </Box >
    );
 };

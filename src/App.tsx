@@ -22,7 +22,6 @@ const App = () => {
    return (
       <React.Fragment>
          <Navigation />
-
          <AppWrapper>
             <Suspense fallback={<p>...</p>}>
                <Routes>

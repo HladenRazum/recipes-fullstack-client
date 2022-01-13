@@ -16,6 +16,7 @@ const theme = createTheme({
          main: "#ad3aff"
       }
    },
+
 });
 
 export default responsiveFontSizes(theme);

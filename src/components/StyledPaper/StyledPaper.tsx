@@ -11,7 +11,7 @@ const StyledPaper = (props: Props) => {
          sx={{
             maxWidth: 480,
             padding: 3,
-            margin: "3em auto",
+            margin: "0 auto",
          }}
       >
          {props.children}
