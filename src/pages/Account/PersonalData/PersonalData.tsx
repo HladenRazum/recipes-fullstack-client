@@ -1,4 +1,4 @@
-import { Container, Typography } from "@mui/material";
+import { Container, Paper, Typography } from "@mui/material";
 import { useAppSelector } from "../../../store/hooks";
 
 interface Props {}
@@ -6,7 +6,13 @@ interface Props {}
 const PersonalData = (props: Props) => {
    return (
       <Container>
-         <Typography variant="h3">Your Details</Typography>
+         <Paper
+            sx={{
+               maxWidth: 480,
+               padding: 2,
+               margin: "3em auto",
+            }}
+         ></Paper>
       </Container>
    );
 };

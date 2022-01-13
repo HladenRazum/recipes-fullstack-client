@@ -6,6 +6,7 @@ import AppWrapper from "./layout/AppWrapper/AppWrapper";
 import CreateRecipe from "./pages/Account/CreateRecipe/CreateRecipe";
 import PersonalData from "./pages/Account/PersonalData/PersonalData";
 import UsersRecipes from "./pages/Account/UsersRecipes/UsersRecipes";
+import PasswordResetPage from "./pages/PasswordResetPage/PasswordResetPage";
 
 const Account = React.lazy(() => import("./pages/Account/Account"));
 const RegisterPage = React.lazy(
@@ -39,6 +40,10 @@ const App = () => {
                   </Route>
                   <Route path="/register" element={<RegisterPage />} />
                   <Route path="/login" element={<LoginPage />} />
+                  <Route
+                     path="/password-reset"
+                     element={<PasswordResetPage />}
+                  />
                   <Route path="/recipes" element={<RecipesPage />}>
                      <Route
                         path="/recipes/filtered"

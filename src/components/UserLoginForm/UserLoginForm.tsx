@@ -4,7 +4,7 @@ import { CSSObject } from "@emotion/react";
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-interface Props { }
+interface Props {}
 
 interface FormikValues {
    username: string;
@@ -16,11 +16,9 @@ interface FormikErrors {
    password?: string;
 }
 
-
 const inputStyles: CSSObject = {
    marginBottom: 2,
 };
-
 
 const initialValues: FormikValues = {
    username: "",
@@ -30,12 +28,10 @@ const initialValues: FormikValues = {
 const validationSchema = yup.object({});
 
 const UserLoginForm = (props: Props) => {
-
    const submitHandler = (
       values: FormikValues,
       actions: FormikHelpers<FormikValues>
    ) => {
-
       // Validate from the server
       // Login the user
       // Call the function from redux
@@ -48,7 +44,6 @@ const UserLoginForm = (props: Props) => {
    });
 
    return (
-
       <form onSubmit={formik.handleSubmit}>
          <TextField
             sx={inputStyles}
@@ -58,9 +53,7 @@ const UserLoginForm = (props: Props) => {
             id="username"
             name="username"
             onChange={formik.handleChange}
-            error={
-               formik.touched.username && Boolean(formik.errors.username)
-            }
+            error={formik.touched.username && Boolean(formik.errors.username)}
             helperText={formik.touched.username && formik.errors.username}
          />
 
@@ -72,17 +65,18 @@ const UserLoginForm = (props: Props) => {
             id="password"
             name="password"
             onChange={formik.handleChange}
-            error={
-               formik.touched.password && Boolean(formik.errors.password)
-            }
+            error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
          />
-
+         <Link to="/password-reset">
+            <Typography variant="body1" color="info.main">
+               Forgot Password
+            </Typography>
+         </Link>
 
          <Button type="submit" variant="contained" sx={{ my: 3 }}>
             Submit
          </Button>
-
       </form>
    );
 };

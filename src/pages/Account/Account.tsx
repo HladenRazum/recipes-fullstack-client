@@ -12,16 +12,13 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import {
-   Link,
-   Outlet,
-} from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 const drawerWidth = 240;
 
-interface AppBarProps extends MuiAppBarProps {
-   open?: boolean;
-}
+// interface AppBarProps extends MuiAppBarProps {
+//    open?: boolean;
+// }
 
 // const AppBar = styled(MuiAppBar, {
 //    shouldForwardProp: (prop) => prop !== "open",
@@ -40,45 +37,39 @@ interface AppBarProps extends MuiAppBarProps {
 //    }),
 // }));
 
-const listItems = ["Pannel", "My Recipes", "Add Recipe"].map(
-   (text, index) => (
-      <ListItem button key={text}>
-         <ListItemIcon>
-            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-         </ListItemIcon>
-         {text !== "Pannel" ? (
-            <Link
-               to={`/account/${text
-                  .toLowerCase()
-                  .replaceAll(" ", "-")}`}
-            >
-               <ListItemText primary={text} />
-            </Link>
-         ) : (
-            <Link to={"/account"}>
-               <ListItemText primary={text} />
-            </Link>
-         )}
-      </ListItem>
-   )
-);
-
-const MenuListItems = ["Reset Password"].map((text, index) => (
+const listItems = ["Pannel", "My Recipes", "Add Recipe"].map((text, index) => (
    <ListItem button key={text}>
       <ListItemIcon>
          {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
       </ListItemIcon>
-      <ListItemText primary={text} />
+      {text !== "Pannel" ? (
+         <Link to={`/account/${text.toLowerCase().replaceAll(" ", "-")}`}>
+            <ListItemText primary={text} />
+         </Link>
+      ) : (
+         <Link to={"/account"}>
+            <ListItemText primary={text} />
+         </Link>
+      )}
    </ListItem>
+));
+
+const MenuListItems = ["Reset Password"].map((text, index) => (
+   <Link to="/password-reset">
+      <ListItem button key={text}>
+         <ListItemIcon>
+            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+         </ListItemIcon>
+         <ListItemText primary={text} />
+      </ListItem>
+   </Link>
 ));
 
 const drawer = (
    <div>
       <Toolbar />
       <Divider />
-      <List>
-         {listItems}
-      </List>
+      <List>{listItems}</List>
       <Divider />
       <List>{MenuListItems}</List>
    </div>
@@ -91,14 +82,12 @@ const mainStyles = {
 };
 
 const drawerStyles = {
-
    display: { xs: "none", sm: "block" },
    "& .MuiDrawer-paper": {
       boxSizing: "border-box",
       width: drawerWidth,
       color: "info.main",
    },
-
 };
 interface Props {
    window?: () => Window;
@@ -124,18 +113,11 @@ const Account = (props: Props) => {
                sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
                aria-label="mailbox folders"
             >
-               <Drawer
-                  variant="permanent"
-                  sx={drawerStyles}
-                  open
-               >
+               <Drawer variant="permanent" sx={drawerStyles} open>
                   {drawer}
                </Drawer>
             </Box>
-            <Box
-               component="main"
-               sx={mainStyles}
-            >
+            <Box component="main" sx={mainStyles}>
                <Toolbar />
                <Outlet />
             </Box>
