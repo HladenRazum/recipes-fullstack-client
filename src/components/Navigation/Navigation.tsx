@@ -11,6 +11,11 @@ interface Links {
 
 const links: Links[] = [
    {
+      title: "register",
+      linkTo: "/register",
+   },
+
+   {
       title: "home",
       linkTo: "/",
    },

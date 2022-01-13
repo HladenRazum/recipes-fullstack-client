@@ -1,12 +1,13 @@
 import { Container } from "@mui/material";
 import React from "react";
+import { footerStyles } from "./styles";
 
 interface Props {}
 
 const Footer = (props: Props) => {
    return (
       <footer>
-         <Container>
+         <Container sx={footerStyles}>
             <h2>Footer Element</h2>
             <p>
                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut

@@ -8,16 +8,23 @@ import {
    useFormik,
 } from "formik";
 import * as yup from "yup";
-import { Box, Button, MenuItem, Paper, TextField, Typography } from "@mui/material";
+import {
+   Box,
+   Button,
+   MenuItem,
+   Paper,
+   TextField,
+   Typography,
+} from "@mui/material";
 import { CSSObject } from "@emotion/react";
 import { RecipesAPI } from "../../repository/recipe-api";
 import { IngredientsModel, RecipeModel } from "../../repository/recipe-model";
 import { getValuePairsFromStringOfIngredients } from "../utils";
-import PreviewImage from "./PreviewImage";
+import PreviewImage from "./PreviewImage/PreviewImage";
 
 const SUPPORTED_FORMATS = "image/png, image/jpeg";
 
-interface Props { }
+interface Props {}
 
 interface FormikValues {
    name: string;
@@ -78,11 +85,8 @@ const AddRecipeForm = (props: Props) => {
       );
       // console.log(recipe);
 
-
       const formData = new FormData();
       console.log(formData);
-
-
 
       RecipesAPI.createItem(recipe).then((data: RecipeModel) => {
          console.log(data);
@@ -137,7 +141,11 @@ const AddRecipeForm = (props: Props) => {
                   <PreviewImage file={formik.values.recipe_img} />
                )}
                {/* Need to handle the error */}
-               {formik.errors.recipe_img && <Typography variant="subtitle1" color="error" >{formik.errors.recipe_img}</Typography>}
+               {formik.errors.recipe_img && (
+                  <Typography variant="subtitle1" color="error">
+                     {formik.errors.recipe_img}
+                  </Typography>
+               )}
                <br />
                <TextField
                   select
