@@ -21,9 +21,10 @@ const RecipesPage = React.lazy(() => import("./pages/RecipesPage/RecipesPage"));
 const App = () => {
    return (
       <React.Fragment>
+         <Navigation />
+
          <AppWrapper>
             <Suspense fallback={<p>...</p>}>
-               <Navigation />
                <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/account" element={<Account />}>

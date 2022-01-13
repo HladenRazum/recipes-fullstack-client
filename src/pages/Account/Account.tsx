@@ -108,19 +108,14 @@ const Account = (props: Props) => {
       <React.Fragment>
          <Box sx={{ display: "flex" }}>
             <CssBaseline />
-            <Box
-               component="nav"
-               sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-               aria-label="mailbox folders"
-            >
-               <Drawer variant="permanent" sx={drawerStyles} open>
-                  {drawer}
-               </Drawer>
-            </Box>
-            <Box component="main" sx={mainStyles}>
-               <Toolbar />
-               <Outlet />
-            </Box>
+
+            <Drawer variant="permanent" sx={drawerStyles} open>
+               {drawer}
+            </Drawer>
+         </Box>
+         <Box component="main" sx={mainStyles}>
+            <Toolbar />
+            <Outlet />
          </Box>
       </React.Fragment>
    );
