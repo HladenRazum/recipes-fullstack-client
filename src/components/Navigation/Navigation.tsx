@@ -52,7 +52,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
    },
 }));
 
-interface Props { }
+interface Props {
+   window?: () => Window;
+
+}
 
 interface Links {
    title: string;
@@ -86,6 +89,15 @@ const links: Links[] = [
 ];
 
 export const Navigation = (props: Props) => {
+
+
+   const { window } = props;
+   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+   const handleDrawerToggle = () => {
+      setMobileOpen(!mobileOpen);
+   };
+
    const isActiveNavLinkStyle = {
       marginRight: "1em",
       padding: "3px 7px",
@@ -101,7 +113,7 @@ export const Navigation = (props: Props) => {
    };
 
    return (
-      <Box position="sticky">
+      <Box position="sticky" sx={{ zIndex: 222000 }}>
          <AppBar  >
             <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                <IconButton
