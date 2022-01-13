@@ -15,20 +15,46 @@ import MailIcon from "@mui/icons-material/Mail";
 import { Link, Outlet } from "react-router-dom";
 import { IconButton, Typography } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
-import MenuIcon from '@mui/icons-material/Menu';
-
+import MenuIcon from "@mui/icons-material/Menu";
 
 const drawerWidth = 240;
 
-
-
 interface Props {
    window?: () => Window;
-
 }
 
-const Account = (props: Props) => {
+const menuItems = ["Account Details", "My Recipes", "Add recipe"].map(
+   (text, index) => {
+      if (text === "Account Details") {
+         return (
+            <Link key={text} to="">
+               <ListItem button key={text}>
+                  <ListItemIcon>
+                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+               </ListItem>
+            </Link>
+         );
+      } else {
+         return (
+            <Link
+               key={text}
+               to={`${text.trim().toLowerCase().replaceAll(" ", "-")}`}
+            >
+               <ListItem button key={text}>
+                  <ListItemIcon>
+                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+               </ListItem>
+            </Link>
+         );
+      }
+   }
+);
 
+const Account = (props: Props) => {
    const { window } = props;
    const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -40,34 +66,28 @@ const Account = (props: Props) => {
       <div>
          <Toolbar />
          <Divider />
-         <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-               <ListItem button key={text}>
-                  <ListItemIcon>
-                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-               </ListItem>
-            ))}
-         </List>
+         <List>{menuItems}</List>
          <Divider />
-         <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-               <ListItem button key={text}>
-                  <ListItemIcon>
-                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-               </ListItem>
+         {/* <List>
+            {["Password Reset"].map((text, index) => (
+               <Link key={text} to="/password-reset">
+                  <ListItem button key={text}>
+                     <ListItemIcon>
+                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                     </ListItemIcon>
+                     <ListItemText primary={text} />
+                  </ListItem>
+               </Link>
             ))}
-         </List>
+         </List> */}
       </div>
    );
 
-   const container = window !== undefined ? () => window().document.body : undefined;
+   const container =
+      window !== undefined ? () => window().document.body : undefined;
 
    return (
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: "flex" }}>
          <CssBaseline />
          <AppBar
             position="fixed"
@@ -82,7 +102,7 @@ const Account = (props: Props) => {
                   aria-label="open drawer"
                   edge="start"
                   onClick={handleDrawerToggle}
-                  sx={{ mr: 2, display: { sm: 'none' } }}
+                  sx={{ mr: 2, display: { sm: "none" } }}
                >
                   <MenuIcon />
                </IconButton>
@@ -106,8 +126,11 @@ const Account = (props: Props) => {
                   keepMounted: true, // Better open performance on mobile.
                }}
                sx={{
-                  display: { xs: 'block', sm: 'none' },
-                  '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                  display: { xs: "block", sm: "none" },
+                  "& .MuiDrawer-paper": {
+                     boxSizing: "border-box",
+                     width: drawerWidth,
+                  },
                }}
             >
                {drawer}
@@ -115,8 +138,11 @@ const Account = (props: Props) => {
             <Drawer
                variant="permanent"
                sx={{
-                  display: { xs: 'none', sm: 'block' },
-                  '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                  display: { xs: "none", sm: "block" },
+                  "& .MuiDrawer-paper": {
+                     boxSizing: "border-box",
+                     width: drawerWidth,
+                  },
                }}
                open
             >
@@ -125,10 +151,13 @@ const Account = (props: Props) => {
          </Box>
          <Box
             component="main"
-            sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+            sx={{
+               flexGrow: 1,
+               p: 3,
+               width: { sm: `calc(100% - ${drawerWidth}px)` },
+            }}
          >
             <Outlet />
-
          </Box>
       </Box>
    );
