@@ -8,6 +8,14 @@ export interface IngredientsModel {
    ingredientPortion: string;
 }
 
+interface IRecipe {
+   name: string;
+   category: string;
+   instructions: string;
+   recipe_img: string;
+   ingredients: IngredientsModel[];
+}
+
 export class RecipeModel implements Identifiable {
    public _id?: IdType = undefined;
    constructor(
@@ -16,5 +24,5 @@ export class RecipeModel implements Identifiable {
       public instructions: string,
       public recipe_img: Blob,
       public ingredients: IngredientsModel[]
-   ) { }
+   ) {}
 }
