@@ -63,10 +63,7 @@ interface Links {
 }
 
 const links: Links[] = [
-   {
-      title: "register",
-      linkTo: "/register",
-   },
+
 
    {
       title: "home",
@@ -81,6 +78,10 @@ const links: Links[] = [
    {
       title: "login",
       linkTo: "/login",
+   },
+   {
+      title: "register",
+      linkTo: "/register",
    },
    {
       title: "account",

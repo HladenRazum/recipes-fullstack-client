@@ -1,6 +1,0 @@
-GET http://192.168.0.102:9000/api/users HTTP/1.1
-###
-
-
-GET http:localhost:9000/api/recipes/61e155f959c33f8abbda4338 HTTP/1.1
-###

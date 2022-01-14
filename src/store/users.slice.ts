@@ -11,8 +11,8 @@ interface UsersState {
 const initialState: UsersState = {
    users: [
       {
-         username: "Imeba",
-         password: "123123123",
+         username: "ASDASDSD",
+         password: "ASDASDASDASD",
       },
    ],
 };
@@ -26,8 +26,6 @@ const usersSlice = createSlice({
             state.users.push(action.payload);
          }
       },
-      // deleteUser(state, action) {
-      // },
    },
 });
 export const usersActions = usersSlice.actions;
