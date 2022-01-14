@@ -1,6 +1,6 @@
 export type UserIdType = "string";
 
-const BASE_URL = "http://localhost:9000/api";
+const BASE_URL = "http://localhost:9000/api/users";
 
 export type UserRoles = "REGISTERED" | "ADMIN";
 
@@ -32,7 +32,7 @@ class UsersRepo implements UsersApiRepo<UserClass> {
    // Register a new user
    async register(user: UserClass) {
       try {
-         const response = await fetch(`BASE_URL/register`, {
+         const response = await fetch(BASE_URL, {
             method: "POST",
             headers: {
                "Content-Type": "application/json",
