@@ -1,9 +1,9 @@
 import { CSSObject, TextField, Button } from "@mui/material";
 import { FormikHelpers, useFormik } from "formik";
 import * as yup from "yup";
-import { UserClass, UserModel, UsersAPI } from "../../repository/user-api";
+import { UserClass, UsersAPI } from "../../repository/user-api";
 
-interface Props {}
+interface Props { }
 
 interface MyFormValues {
    username: string;
@@ -42,12 +42,12 @@ const submitHandler = (
    actions: FormikHelpers<MyFormValues>
 ) => {
    // Send a POST request
-   const newUser: UserModel = {
+   const newUser: UserClass = {
       username: values.username,
       email: values.email,
       password: values.password,
    };
-   UsersAPI.create(newUser);
+   UsersAPI.register(newUser);
 };
 const inputStyles: CSSObject = {
    marginBottom: 2,

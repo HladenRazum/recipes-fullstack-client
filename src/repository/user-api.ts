@@ -4,14 +4,13 @@ const BASE_URL = "http://localhost:9000/api";
 
 export type UserRoles = "REGISTERED" | "ADMIN";
 
-interface UsersApiClient<T> {
+interface UsersApiRepo<T> {
    register(user: T): Promise<T>;
    // login(id: UserIdType): Promise<T>;
    // resetPassword(id: UserIdType): Promise<T>;
    // deleteUserId(id: UserIdType): Promise<T>;
 }
-
-export interface UserModel {
+export interface IUser {
    username: string;
    email: string;
    password: string;
@@ -19,17 +18,17 @@ export interface UserModel {
    _id?: UserIdType | undefined;
 }
 
-export class UserClass implements UserModel {
-   public role: UserRoles = "REGISTERED";
+export class UserClass {
+   public role?: UserRoles = "REGISTERED";
    public _id?: UserIdType | undefined;
    constructor(
       public username: string,
       public email: string,
       public password: string
-   ) {}
+   ) { }
 }
 
-class UsersRepo implements UsersApiClient<UserClass> {
+class UsersRepo implements UsersApiRepo<UserClass> {
    // Register a new user
    async register(user: UserClass) {
       try {
@@ -55,4 +54,4 @@ class UsersRepo implements UsersApiClient<UserClass> {
    }
 }
 
-export const UsersAPI: UsersApiClient<UserClass> = new UsersRepo();
+export const UsersAPI: UsersApiRepo<UserClass> = new UsersRepo();
