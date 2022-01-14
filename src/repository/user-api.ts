@@ -14,8 +14,8 @@ interface UsersApiRepo<T> {
 }
 export interface IUser {
    username: string;
-   email: string;
    password: string;
+   email: string;
    role?: UserRoles;
    _id?: UserIdType | undefined;
 }

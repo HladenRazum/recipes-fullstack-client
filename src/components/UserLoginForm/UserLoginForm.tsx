@@ -12,11 +12,6 @@ interface FormikValues {
    password: string;
 }
 
-interface FormikErrors {
-   username?: string;
-   password?: string;
-}
-
 const inputStyles: CSSObject = {
    marginBottom: 2,
 };
@@ -46,7 +41,6 @@ const UserLoginForm = (props: Props) => {
          username: values.username,
          password: values.password,
       };
-      // Validate from the server
       // Login the user
       UsersAPI.login(currentUser);
       // Update UI
