@@ -12,13 +12,14 @@ import { NavLink } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
    position: "relative",
+   width: 500,
    borderRadius: theme.shape.borderRadius,
    backgroundColor: alpha(theme.palette.common.white, 0.15),
    "&:hover": {
       backgroundColor: alpha(theme.palette.common.white, 0.25),
    },
    marginLeft: 0,
-   width: "100%",
+   marginRight: [theme.spacing(3)],
    [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
       width: "auto",
@@ -44,9 +45,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       transition: theme.transitions.create("width"),
       width: "100%",
       [theme.breakpoints.up("sm")]: {
-         width: "12ch",
+         width: "18ch",
          "&:focus": {
-            width: "20ch",
+            width: "24ch",
          },
       },
    },
@@ -111,7 +112,7 @@ export const Navigation = (props: Props) => {
    };
 
    return (
-      <Box position="sticky" sx={{ zIndex: 222000 }}>
+      <Box position="sticky" sx={{ zIndex: 222000, padding: 4 }}>
          <AppBar>
             <Toolbar
                sx={{
@@ -120,15 +121,7 @@ export const Navigation = (props: Props) => {
                   alignItems: "center",
                }}
             >
-               <IconButton
-                  size="large"
-                  edge="start"
-                  color="inherit"
-                  aria-label="open drawer"
-                  sx={{ mr: 2 }}
-               >
-                  <MenuIcon />
-               </IconButton>
+               <div></div>
                <nav>
                   <Box
                      component="ul"
@@ -136,7 +129,6 @@ export const Navigation = (props: Props) => {
                         display: "flex",
                         justifyContent: "flex-end",
                         alignItems: "center",
-                        marginTop: 0,
                      }}
                   >
                      <Search>
