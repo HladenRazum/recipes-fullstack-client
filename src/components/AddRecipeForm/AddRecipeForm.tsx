@@ -1,16 +1,7 @@
 import React, { ChangeEvent, ChangeEventHandler } from "react";
-import {
-   FormikHelpers,
-   useFormik,
-} from "formik";
+import { FormikHelpers, useFormik } from "formik";
 import * as yup from "yup";
-import {
-   Button,
-   MenuItem,
-   Paper,
-   TextField,
-   Typography,
-} from "@mui/material";
+import { Button, MenuItem, Paper, TextField, Typography } from "@mui/material";
 import { CSSObject } from "@emotion/react";
 import { RecipesAPI } from "../../repository/recipe-api";
 import { IngredientsModel, RecipeModel } from "../../repository/recipe-model";
@@ -19,7 +10,7 @@ import PreviewImage from "./PreviewImage/PreviewImage";
 
 const SUPPORTED_FORMATS = "image/png, image/jpeg";
 
-interface Props { }
+interface Props {}
 
 interface FormikValues {
    name: string;
@@ -69,23 +60,23 @@ const AddRecipeForm = (props: Props) => {
          getValuePairsFromStringOfIngredients(values.ingredients);
 
       if (values.recipe_img === null) return;
-
-      // console.log(values);
-      const recipe = new RecipeModel(
-         values.name,
-         values.category,
-         values.instructions,
-         values.recipe_img,
-         ingredientArrays
-      );
-      // console.log(recipe);
+      console.log(values);
 
       const formData = new FormData();
-      console.log(formData);
 
-      RecipesAPI.createItem(recipe).then((data: RecipeModel) => {
-         console.log(data);
-      });
+      formData.append("name", values.name);
+      formData.append("recipe_img", values.recipe_img);
+
+      fetch("http://localhost:9000/api/recipes", {
+         method: "POST",
+         body: formData,
+      })
+         .then((response) => {
+            console.log(response);
+         })
+         .catch((err) => {
+            console.log(err);
+         });
    };
 
    const CATEGORIES = ["dessert", "lunch", "dinner", "breakfast"];
@@ -112,8 +103,7 @@ const AddRecipeForm = (props: Props) => {
 
    return (
       <React.Fragment>
-
-         <form onSubmit={formik.handleSubmit}>
+         <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
             <input
                type="file"
                required

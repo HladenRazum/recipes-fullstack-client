@@ -6,8 +6,11 @@ import AppWrapper from "./layout/AppWrapper/AppWrapper";
 import CreateRecipe from "./pages/Account/CreateRecipe/CreateRecipe";
 import PersonalData from "./pages/Account/PersonalData/PersonalData";
 import UsersRecipes from "./pages/Account/UsersRecipes/UsersRecipes";
-import PasswordResetPage from "./pages/PasswordResetPage/PasswordResetPage";
+// import PasswordResetPage from "./pages/PasswordResetPage/PasswordResetPage";
 
+const PasswordResetPage = React.lazy(
+   () => import("./pages/PasswordResetPage/PasswordResetPage")
+);
 const Account = React.lazy(() => import("./pages/Account/Account"));
 const RegisterPage = React.lazy(
    () => import("./pages/RegisterPage/RegisterPage")
