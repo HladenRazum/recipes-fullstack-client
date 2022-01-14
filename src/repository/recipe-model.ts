@@ -14,6 +14,7 @@ export interface IRecipe {
    instructions: string;
    recipe_img: string | File;
    ingredients: IngredientsModel[];
+   featured?: boolean;
    url?: string;
    _id?: IdType | undefined;
 }
@@ -26,5 +27,5 @@ export class RecipeModel implements Identifiable {
       public instructions: string,
       public recipe_img: string | File,
       public ingredients: IngredientsModel[]
-   ) {}
+   ) { }
 }
