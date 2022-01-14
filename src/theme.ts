@@ -14,7 +14,8 @@ const theme = createTheme({
       },
       info: {
          main: "#ad3aff"
-      }
+      },
+
    },
 
 });

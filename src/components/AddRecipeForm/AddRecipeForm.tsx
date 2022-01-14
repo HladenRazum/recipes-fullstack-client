@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ChangeEventHandler } from "react";
+import React, { ChangeEvent, ChangeEventHandler, SyntheticEvent } from "react";
 import { FormikHelpers, useFormik } from "formik";
 import * as yup from "yup";
 import { Button, MenuItem, Paper, TextField, Typography } from "@mui/material";
@@ -51,6 +51,8 @@ const initialValues: FormikValues = {
 };
 
 const AddRecipeForm = (props: Props) => {
+
+
    const submitHandler = (
       values: FormikValues,
       actions: FormikHelpers<FormikValues>
@@ -80,6 +82,8 @@ const AddRecipeForm = (props: Props) => {
          .catch((err) => {
             console.log(err);
          });
+
+      // actions.resetForm();
    };
 
    const CATEGORIES = ["dessert", "lunch", "dinner", "breakfast"];
@@ -104,8 +108,16 @@ const AddRecipeForm = (props: Props) => {
       margin: "1em 0",
    };
 
+
+
+
    return (
       <React.Fragment>
+         <Button sx={{ marginBottom: 2 }} color="info" type="button" onClick={() => {
+            formik.resetForm();
+         }}>Reset Form</Button>
+
+
          <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
             <input
                type="file"
@@ -208,6 +220,8 @@ const AddRecipeForm = (props: Props) => {
                Create recipe
             </Button>
          </form>
+
+
       </React.Fragment>
    );
 };
