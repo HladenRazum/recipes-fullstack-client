@@ -10,7 +10,7 @@ import PreviewImage from "./PreviewImage/PreviewImage";
 
 const SUPPORTED_FORMATS = "image/png, image/jpeg";
 
-interface Props { }
+interface Props {}
 
 interface FormikValues {
    name: string;
@@ -51,8 +51,6 @@ const initialValues: FormikValues = {
 };
 
 const AddRecipeForm = (props: Props) => {
-
-
    const submitHandler = (
       values: FormikValues,
       actions: FormikHelpers<FormikValues>
@@ -64,23 +62,20 @@ const AddRecipeForm = (props: Props) => {
       if (values.recipe_img === null) return;
       console.log(ingredientArrays);
 
+      const recipe: RecipeModel = {
+         name: values.name,
+         instructions: values.instructions,
+         ingredients: ingredientArrays,
+         category: values.category,
+         recipe_img: values.recipe_img,
+      };
 
-      const formData = new FormData();
-      formData.append("name", values.name);
-      formData.append("instructions", values.instructions);
-      formData.append("ingredients", JSON.stringify(ingredientArrays));
-      formData.append("category", values.category);
-      formData.append("recipe_img", values.recipe_img);
-
-      fetch("http://localhost:9000/api/recipes", {
-         method: "POST",
-         body: formData,
-      })
-         .then((response) => {
-            console.log(response);
+      RecipesAPI.createItem(recipe)
+         .then((data) => {
+            console.log(data);
          })
-         .catch((err) => {
-            console.log(err);
+         .catch((error) => {
+            console.log(error);
          });
 
       // actions.resetForm();
@@ -108,15 +103,18 @@ const AddRecipeForm = (props: Props) => {
       margin: "1em 0",
    };
 
-
-
-
    return (
       <React.Fragment>
-         <Button sx={{ marginBottom: 2 }} color="info" type="button" onClick={() => {
-            formik.resetForm();
-         }}>Reset Form</Button>
-
+         <Button
+            sx={{ marginBottom: 2 }}
+            color="info"
+            type="button"
+            onClick={() => {
+               formik.resetForm();
+            }}
+         >
+            Reset Form
+         </Button>
 
          <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
             <input
@@ -220,8 +218,6 @@ const AddRecipeForm = (props: Props) => {
                Create recipe
             </Button>
          </form>
-
-
       </React.Fragment>
    );
 };

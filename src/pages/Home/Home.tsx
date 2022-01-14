@@ -6,7 +6,7 @@ import { Recipes } from "../../components/Recipes/Recipes";
 import SearchRecipesForm from "../../components/SearchRecipesForm/SearchRecipesForm";
 import { Recipe } from "../../components/Recipes/Recipe/Recipe";
 
-interface Props { }
+interface Props {}
 
 export const Home = (props: Props) => {
    return (
@@ -24,7 +24,6 @@ export const Home = (props: Props) => {
                   <Recipe
                      title="Testing Recipe"
                      description="A tasty breakfast with eggs"
-                     rating={9}
                   />
                </Grid>
             </Grid>
@@ -36,7 +35,6 @@ export const Home = (props: Props) => {
                   <Recipe
                      title="Testing Recipe"
                      description="A tasty breakfast with eggs"
-                     rating={9}
                   />
                </Grid>
             </Grid>
@@ -48,7 +46,6 @@ export const Home = (props: Props) => {
                   <Recipe
                      title="Testing Recipe"
                      description="A tasty breakfast with eggs"
-                     rating={9}
                   />
                </Grid>
             </Grid>

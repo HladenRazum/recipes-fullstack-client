@@ -1,9 +1,7 @@
 import { ApiClient, IdType, processResponse } from ".";
 import { RecipeModel } from "./recipe-model";
 
-export const BASE_URL = 'http://localhost:9000/api/recipes';
-
-
+export const BASE_URL = "http://localhost:9000/api/recipes";
 
 class RecipesRepo implements ApiClient<RecipeModel> {
    async getAllItems(): Promise<RecipeModel[]> {
@@ -11,13 +9,18 @@ class RecipesRepo implements ApiClient<RecipeModel> {
    }
 
    async createItem(T: RecipeModel): Promise<RecipeModel> {
-      return processResponse(fetch(BASE_URL, {
-         method: "POST",
-         headers: {
-            "Content-Type": "Application/json"
-         },
-         body: JSON.stringify(T)
-      }));
+      const formData = new FormData();
+      formData.append("name", T.name);
+      formData.append("instructions", T.instructions);
+      formData.append("ingredients", JSON.stringify(T.ingredients));
+      formData.append("category", T.category);
+      formData.append("recipe_img", T.recipe_img);
+      return processResponse(
+         fetch(BASE_URL, {
+            method: "POST",
+            body: formData,
+         })
+      );
    }
 
    async findItemById(id: IdType): Promise<RecipeModel> {
@@ -30,9 +33,7 @@ class RecipesRepo implements ApiClient<RecipeModel> {
 
    deleteItemById(id: IdType): Promise<RecipeModel> {
       return processResponse(fetch(BASE_URL), id);
-
    }
 }
-
 
 export const RecipesAPI: ApiClient<RecipeModel> = new RecipesRepo();
