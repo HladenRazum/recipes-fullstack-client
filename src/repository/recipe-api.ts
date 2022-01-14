@@ -23,16 +23,16 @@ class RecipesRepo implements ApiClient<RecipeModel> {
       );
    }
 
-   async findItemById(id: IdType): Promise<RecipeModel> {
-      return processResponse(fetch(BASE_URL), id);
+   async findItemById(_id: IdType): Promise<RecipeModel> {
+      return processResponse(fetch(BASE_URL), _id);
    }
 
-   async updateItem(id: IdType): Promise<RecipeModel> {
-      return processResponse(fetch(BASE_URL), id);
+   async updateItem(_id: IdType): Promise<RecipeModel> {
+      return processResponse(fetch(BASE_URL), _id);
    }
 
-   deleteItemById(id: IdType): Promise<RecipeModel> {
-      return processResponse(fetch(BASE_URL), id);
+   deleteItemById(_id: IdType): Promise<RecipeModel> {
+      return processResponse(fetch(BASE_URL), _id);
    }
 }
 

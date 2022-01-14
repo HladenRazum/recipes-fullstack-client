@@ -1,11 +1,5 @@
-export type IdType = string;
 
-// export interface Repository<T, Z> {
-//    fetchItems(items: T[]): Promise<T[]>;
-//    createItem(item: T): Promise<T>;
-//    removeItemById(id: Z): Promise<T>;
-//    updateItemById(id: Z): Promise<T>;
-// }
+export type IdType = string;
 
 export interface ApiClient<T> {
    getAllItems(): Promise<T[]>;
@@ -13,12 +7,6 @@ export interface ApiClient<T> {
    createItem(T: T): Promise<T>;
    updateItem(id: IdType): Promise<T>;
    deleteItemById(id: IdType): Promise<T>;
-}
-
-export interface IRecipe {
-   name: string;
-   instructions: string;
-   _id?: IdType | undefined;
 }
 
 export async function processResponse<T>(

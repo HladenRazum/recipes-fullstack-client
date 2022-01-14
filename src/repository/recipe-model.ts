@@ -8,12 +8,18 @@ export interface IngredientsModel {
    ingredientPortion: string;
 }
 
-interface IRecipe {
+export interface IRecipe {
    name: string;
    category: string;
    instructions: string;
-   recipe_img: string;
+   recipe_img: string | File;
    ingredients: IngredientsModel[];
+   request?: {
+      method: string,
+      url: string;
+   };
+   _id?: IdType | undefined;
+
 }
 
 export class RecipeModel implements Identifiable {
@@ -22,7 +28,7 @@ export class RecipeModel implements Identifiable {
       public name: string,
       public category: string,
       public instructions: string,
-      public recipe_img: Blob,
+      public recipe_img: string | File,
       public ingredients: IngredientsModel[]
-   ) {}
+   ) { }
 }

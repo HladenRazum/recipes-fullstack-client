@@ -6,6 +6,7 @@ import AppWrapper from "./layout/AppWrapper/AppWrapper";
 import CreateRecipe from "./pages/Account/CreateRecipe/CreateRecipe";
 import PersonalData from "./pages/Account/PersonalData/PersonalData";
 import UsersRecipes from "./pages/Account/UsersRecipes/UsersRecipes";
+import SuspenceFallback from "./pages/SuspenceFallback/SuspenceFallback";
 // import PasswordResetPage from "./pages/PasswordResetPage/PasswordResetPage";
 
 const PasswordResetPage = React.lazy(
@@ -26,7 +27,7 @@ const App = () => {
       <React.Fragment>
          <Navigation />
          <AppWrapper>
-            <Suspense fallback={<p>...</p>}>
+            <Suspense fallback={<SuspenceFallback />}>
                <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/account" element={<Account />}>

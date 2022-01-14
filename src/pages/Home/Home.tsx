@@ -6,7 +6,7 @@ import { Recipes } from "../../components/Recipes/Recipes";
 import SearchRecipesForm from "../../components/SearchRecipesForm/SearchRecipesForm";
 import { Recipe } from "../../components/Recipes/Recipe/Recipe";
 
-interface Props {}
+interface Props { }
 
 export const Home = (props: Props) => {
    return (
@@ -16,39 +16,7 @@ export const Home = (props: Props) => {
          </Container>
          <Header />
          <Container>
-            <Grid container justifyContent="space-between">
-               <Grid item md={8}>
-                  <FeaturedRecipe />
-               </Grid>
-               <Grid item md={3}>
-                  <Recipe
-                     title="Testing Recipe"
-                     description="A tasty breakfast with eggs"
-                  />
-               </Grid>
-            </Grid>
-            <Grid container justifyContent="space-between">
-               <Grid item md={8}>
-                  <FeaturedRecipe />
-               </Grid>
-               <Grid item md={3}>
-                  <Recipe
-                     title="Testing Recipe"
-                     description="A tasty breakfast with eggs"
-                  />
-               </Grid>
-            </Grid>
-            <Grid container justifyContent="space-between">
-               <Grid item md={8}>
-                  <FeaturedRecipe />
-               </Grid>
-               <Grid item md={3}>
-                  <Recipe
-                     title="Testing Recipe"
-                     description="A tasty breakfast with eggs"
-                  />
-               </Grid>
-            </Grid>
+
          </Container>
       </React.Fragment>
    );

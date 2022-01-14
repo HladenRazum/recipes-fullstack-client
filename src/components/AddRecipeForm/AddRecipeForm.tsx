@@ -1,46 +1,24 @@
-import React, { ChangeEvent, ChangeEventHandler, SyntheticEvent } from "react";
+import React, { ChangeEvent } from "react";
 import { FormikHelpers, useFormik } from "formik";
-import * as yup from "yup";
-import { Button, MenuItem, Paper, TextField, Typography } from "@mui/material";
+import { Button, MenuItem, TextField, Typography } from "@mui/material";
 import { CSSObject } from "@emotion/react";
 import { RecipesAPI } from "../../repository/recipe-api";
 import { IngredientsModel, RecipeModel } from "../../repository/recipe-model";
 import { getValuePairsFromStringOfIngredients } from "../utils";
 import PreviewImage from "./PreviewImage/PreviewImage";
+import { recipesValidationSchema, SUPPORTED_FORMATS } from "./recipesValidationSchema";
 
-const SUPPORTED_FORMATS = "image/png, image/jpeg";
+const RECIPE_CATEGORIES = ["dessert", "lunch", "dinner", "breakfast"];
 
-interface Props {}
+interface Props { }
 
 interface FormikValues {
    name: string;
    instructions: string;
    category: string;
-   recipe_img: Blob | null;
+   recipe_img: File | null;
    ingredients: string;
 }
-
-const validationSchema = yup.object({
-   name: yup.string().required("Name is required"),
-   recipe_img: yup
-      .mixed()
-      .nullable()
-      .required()
-      .test(
-         "FILE_SIZE",
-         "Uploaded file's size is too big.",
-         (value) => !value || (value && value.size <= 1024 * 1024)
-      )
-      .test(
-         "FILE_FORMAT",
-         "Uplaoded file has unsupported format.",
-         (value) => !value || (value && SUPPORTED_FORMATS.includes(value?.type))
-      ),
-   instructions: yup
-      .string()
-      .required("Instructions are required")
-      .min(3, "Instructions must be at least 20 characters long"),
-});
 
 const initialValues: FormikValues = {
    name: "",
@@ -50,7 +28,19 @@ const initialValues: FormikValues = {
    ingredients: "",
 };
 
+const inputStyles: CSSObject = {
+   marginBottom: 2,
+};
+
+const selectStyles: CSSObject = {
+   minWidth: 150,
+   margin: "1em 0",
+};
+
+
 const AddRecipeForm = (props: Props) => {
+
+
    const submitHandler = (
       values: FormikValues,
       actions: FormikHelpers<FormikValues>
@@ -72,17 +62,16 @@ const AddRecipeForm = (props: Props) => {
 
       RecipesAPI.createItem(recipe)
          .then((data) => {
-            console.log(data);
+            // Show snackbar success
          })
          .catch((error) => {
-            console.log(error);
+            // setOpenSnackBar(true);
          });
 
       // actions.resetForm();
    };
 
-   const CATEGORIES = ["dessert", "lunch", "dinner", "breakfast"];
-   const categoryOptions = CATEGORIES.map((option) => (
+   const categoryOptions = RECIPE_CATEGORIES.map((option) => (
       <MenuItem key={option} value={option.toLocaleLowerCase()}>
          {option}
       </MenuItem>
@@ -90,21 +79,18 @@ const AddRecipeForm = (props: Props) => {
 
    const formik = useFormik({
       initialValues,
-      validationSchema,
+      validationSchema: recipesValidationSchema,
       onSubmit: submitHandler,
    });
 
-   const inputStyles: CSSObject = {
-      marginBottom: 2,
-   };
-
-   const selectStyles: CSSObject = {
-      minWidth: 150,
-      margin: "1em 0",
-   };
 
    return (
       <React.Fragment>
+
+
+
+
+
          <Button
             sx={{ marginBottom: 2 }}
             color="info"
@@ -133,7 +119,7 @@ const AddRecipeForm = (props: Props) => {
             {formik.values.recipe_img && (
                <PreviewImage file={formik.values.recipe_img} />
             )}
-            {/* Need to handle the error */}
+
             {formik.errors.recipe_img && (
                <Typography variant="subtitle1" color="error">
                   {formik.errors.recipe_img}
@@ -217,6 +203,9 @@ const AddRecipeForm = (props: Props) => {
             <Button variant="contained" type="submit">
                Create recipe
             </Button>
+
+
+
          </form>
       </React.Fragment>
    );

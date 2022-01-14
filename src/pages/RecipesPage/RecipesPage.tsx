@@ -1,10 +1,10 @@
 import { Container, Grid, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Recipes } from "../../components/Recipes/Recipes";
-import { IRecipe } from "../../repository";
 import { RecipesAPI } from "../../repository/recipe-api";
+import { IRecipe } from "../../repository/recipe-model";
 
-interface Props {}
+interface Props { }
 
 const RecipesPage = (props: Props) => {
    const [allRecipes, setAllRecipes] = useState<IRecipe[]>([]);
@@ -25,6 +25,8 @@ const RecipesPage = (props: Props) => {
    useEffect(() => {
       getAllRecipes();
    }, []);
+   console.log(allRecipes);
+
 
    return (
       <React.Fragment>
