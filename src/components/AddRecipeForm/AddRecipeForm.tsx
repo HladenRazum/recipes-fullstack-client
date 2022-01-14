@@ -10,7 +10,7 @@ import PreviewImage from "./PreviewImage/PreviewImage";
 
 const SUPPORTED_FORMATS = "image/png, image/jpeg";
 
-interface Props {}
+interface Props { }
 
 interface FormikValues {
    name: string;
@@ -60,11 +60,14 @@ const AddRecipeForm = (props: Props) => {
          getValuePairsFromStringOfIngredients(values.ingredients);
 
       if (values.recipe_img === null) return;
-      console.log(values);
+      console.log(ingredientArrays);
+
 
       const formData = new FormData();
-
       formData.append("name", values.name);
+      formData.append("instructions", values.instructions);
+      formData.append("ingredients", JSON.stringify(ingredientArrays));
+      formData.append("category", values.category);
       formData.append("recipe_img", values.recipe_img);
 
       fetch("http://localhost:9000/api/recipes", {
