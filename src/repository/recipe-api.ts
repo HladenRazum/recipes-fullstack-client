@@ -1,7 +1,7 @@
 import { ApiClient, IdType, processResponse } from ".";
 import { RecipeModel } from "./recipe-model";
 
-export const BASE_URL = "http://localhost:9000/api/recipes";
+const BASE_URL = "http://localhost:9000/api/recipes";
 
 class RecipesRepo implements ApiClient<RecipeModel> {
    async getAllItems(): Promise<RecipeModel[]> {

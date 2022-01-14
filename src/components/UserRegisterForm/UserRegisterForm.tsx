@@ -2,7 +2,7 @@ import { CSSObject, TextField, Button } from "@mui/material";
 import { FormikHelpers, useFormik } from "formik";
 import * as yup from "yup";
 
-interface Props {}
+interface Props { }
 
 interface MyFormValues {
    username: string;
@@ -40,7 +40,8 @@ const submitHandler = (
    values: MyFormValues,
    actions: FormikHelpers<MyFormValues>
 ) => {
-   console.log(values);
+   // Send a POST request
+
 };
 const inputStyles: CSSObject = {
    marginBottom: 2,
