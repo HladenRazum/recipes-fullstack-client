@@ -1,12 +1,14 @@
 export type UserIdType = "string";
 
-const BASE_URL = "http://localhost:9000/api/users";
+const BASE_URL = "http://localhost:9000";
 
 export type UserRoles = "REGISTERED" | "ADMIN";
 
+export type JWT = string;
+
 interface UsersApiRepo<T> {
    register(user: T): Promise<T>;
-   // login(id: UserIdType): Promise<T>;
+   login(user: T): Promise<T>;
    // resetPassword(id: UserIdType): Promise<T>;
    // deleteUserId(id: UserIdType): Promise<T>;
 }
@@ -31,6 +33,29 @@ export class UserClass {
 class UsersRepo implements UsersApiRepo<UserClass> {
    // Register a new user
    async register(user: UserClass) {
+      try {
+         const response = await fetch(`${BASE_URL}/api/users`, {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user),
+         });
+
+         if (!response.ok) {
+            throw new Error(
+               `Failed register request. ERROR CODE: ${response.status}`
+            );
+         }
+         const data = await response.json();
+         console.log(data);
+         return data;
+      } catch (error) {
+         console.log(error);
+      }
+   }
+
+   async login(user: UserClass) {
       try {
          const response = await fetch(BASE_URL, {
             method: "POST",

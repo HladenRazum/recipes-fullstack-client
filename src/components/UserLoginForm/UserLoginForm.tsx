@@ -3,17 +3,20 @@ import * as yup from "yup";
 import { CSSObject } from "@emotion/react";
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { UserClass, UsersAPI } from "../../repository/user-api";
 
-interface Props {}
+interface Props { }
 
 interface FormikValues {
    username: string;
    password: string;
+   email: string;
 }
 
 interface FormikErrors {
    username?: string;
    password?: string;
+   email?: string;
 }
 
 const inputStyles: CSSObject = {
@@ -23,6 +26,8 @@ const inputStyles: CSSObject = {
 const initialValues: FormikValues = {
    username: "",
    password: "",
+   email: "",
+
 };
 
 const validationSchema = yup.object({});
@@ -32,15 +37,30 @@ const UserLoginForm = (props: Props) => {
       values: FormikValues,
       actions: FormikHelpers<FormikValues>
    ) => {
+      const currentUser: UserClass = {
+         username: values.username,
+         email: values.email,
+         password: values.password
+      };
       // Validate from the server
       // Login the user
-      // Call the function from redux
+      UsersAPI.login(currentUser);
+      // Update UI 
+   };
+
+   const validate = async (values: FormikValues) => {
+      try {
+         const response = await fetch("http://localhost:9000/api/users");
+      } catch (error) {
+
+      }
    };
 
    const formik = useFormik({
       initialValues,
       validationSchema,
       onSubmit: submitHandler,
+      validate
    });
 
    return (
@@ -74,7 +94,7 @@ const UserLoginForm = (props: Props) => {
             </Typography>
          </Link>
 
-         <Button type="submit" variant="contained" sx={{ my: 3 }}>
+         <Button disabled={!formik.isValid} type="submit" variant="contained" sx={{ my: 3 }}>
             Submit
          </Button>
       </form>

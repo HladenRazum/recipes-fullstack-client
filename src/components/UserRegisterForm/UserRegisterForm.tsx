@@ -98,7 +98,7 @@ const UserRegisterForm = (props: Props) => {
             helperText={formik.touched.email && formik.errors.email}
          />
 
-         <Button type="submit" variant="contained" sx={{ my: 3 }}>
+         <Button disabled={!formik.isValid} type="submit" variant="contained" sx={{ my: 3 }}>
             Submit
          </Button>
       </form>
