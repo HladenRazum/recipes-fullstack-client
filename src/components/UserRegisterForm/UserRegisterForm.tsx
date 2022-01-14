@@ -1,10 +1,8 @@
-import { CSSObject, Grid, Paper, TextField, Button, Typography } from "@mui/material";
-import React, { FormEvent } from "react";
-import { Formik, Form, Field, FormikHelpers, useFormik } from "formik";
+import { CSSObject, TextField, Button } from "@mui/material";
+import { FormikHelpers, useFormik } from "formik";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
 
-interface Props { }
+interface Props {}
 
 interface MyFormValues {
    username: string;
@@ -35,9 +33,7 @@ const validationSchema = yup.object({
       .string()
       .required("Password is required")
       .min(5, "Password must be at least 5 characters long."),
-   // email: yup.required("Email is required"),
-   //  server validation here
-   // check if object is email
+   email: yup.string().email("Invalid Email").required("Email is required"),
 });
 
 const submitHandler = (
@@ -58,7 +54,6 @@ const UserRegisterForm = (props: Props) => {
    });
 
    return (
-
       <form onSubmit={formik.handleSubmit}>
          <TextField
             sx={inputStyles}
@@ -68,9 +63,7 @@ const UserRegisterForm = (props: Props) => {
             id="username"
             name="username"
             onChange={formik.handleChange}
-            error={
-               formik.touched.username && Boolean(formik.errors.username)
-            }
+            error={formik.touched.username && Boolean(formik.errors.username)}
             helperText={formik.touched.username && formik.errors.username}
          />
 
@@ -82,9 +75,7 @@ const UserRegisterForm = (props: Props) => {
             id="password"
             name="password"
             onChange={formik.handleChange}
-            error={
-               formik.touched.password && Boolean(formik.errors.password)
-            }
+            error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
          />
 
@@ -104,8 +95,6 @@ const UserRegisterForm = (props: Props) => {
             Submit
          </Button>
       </form>
-
-
    );
 };
 

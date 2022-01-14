@@ -63,8 +63,6 @@ interface Links {
 }
 
 const links: Links[] = [
-
-
    {
       title: "home",
       linkTo: "/",
