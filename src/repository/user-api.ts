@@ -25,9 +25,9 @@ export class UserClass {
    public _id?: UserIdType | undefined;
    constructor(
       public username: string,
-      public email: string,
-      public password: string
-   ) { }
+      public password: string,
+      public email?: string
+   ) {}
 }
 
 class UsersRepo implements UsersApiRepo<UserClass> {
@@ -42,11 +42,6 @@ class UsersRepo implements UsersApiRepo<UserClass> {
             body: JSON.stringify(user),
          });
 
-         if (!response.ok) {
-            throw new Error(
-               `Failed register request. ERROR CODE: ${response.status}`
-            );
-         }
          const data = await response.json();
          console.log(data);
          return data;
@@ -57,7 +52,7 @@ class UsersRepo implements UsersApiRepo<UserClass> {
 
    async login(user: UserClass) {
       try {
-         const response = await fetch(BASE_URL, {
+         const response = await fetch(`${BASE_URL}/api/login`, {
             method: "POST",
             headers: {
                "Content-Type": "application/json",
@@ -65,11 +60,6 @@ class UsersRepo implements UsersApiRepo<UserClass> {
             body: JSON.stringify(user),
          });
 
-         if (!response.ok) {
-            throw new Error(
-               `Failed register request. ERROR CODE: ${response.status}`
-            );
-         }
          const data = await response.json();
          console.log(data);
          return data;
