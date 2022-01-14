@@ -4,29 +4,34 @@ const BASE_URL = "http://localhost:9000/api";
 
 export type UserRoles = "REGISTERED" | "ADMIN";
 
+interface UsersApiClient<T> {
+   register(user: T): Promise<T>;
+   // login(id: UserIdType): Promise<T>;
+   // resetPassword(id: UserIdType): Promise<T>;
+   // deleteUserId(id: UserIdType): Promise<T>;
+}
+
 export interface UserModel {
-   name: string;
+   username: string;
    email: string;
    password: string;
    role?: UserRoles;
    _id?: UserIdType | undefined;
 }
 
-class UserClass implements UserModel {
+export class UserClass implements UserModel {
    public role: UserRoles = "REGISTERED";
    public _id?: UserIdType | undefined;
    constructor(
-      public name: string,
+      public username: string,
       public email: string,
-      public password: string,
-   ) {
-   }
+      public password: string
+   ) {}
 }
 
-class UsersAPI extends UserClass {
-
+class UsersRepo implements UsersApiClient<UserClass> {
    // Register a new user
-   async register(user: UserModel) {
+   async register(user: UserClass) {
       try {
          const response = await fetch(`BASE_URL/register`, {
             method: "POST",
@@ -37,17 +42,17 @@ class UsersAPI extends UserClass {
          });
 
          if (!response.ok) {
-            throw new Error(`Failed register request. ERROR CODE: ${response.status}`);
+            throw new Error(
+               `Failed register request. ERROR CODE: ${response.status}`
+            );
          }
-
          const data = await response.json();
          console.log(data);
-
+         return data;
       } catch (error) {
          console.log(error);
       }
    }
-
 }
 
-export default UsersAPI;
+export const UsersAPI: UsersApiClient<UserClass> = new UsersRepo();
