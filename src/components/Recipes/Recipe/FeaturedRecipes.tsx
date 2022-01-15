@@ -32,16 +32,16 @@ const FeaturedRecipes = (props: Props) => {
                <Grid item md={3}>
                   <img
                      loading="lazy"
-                     src={allRecipes[0].url}
-                     alt={allRecipes[0].name}
+                     src={allRecipes[1].url}
+                     alt={allRecipes[1].name}
                   />
                   <Typography my={3} textAlign="center" variant="h5">Desserts</Typography>
                </Grid>
                <Grid item md={3}>
                   <img
                      loading="lazy"
-                     src={allRecipes[3].url}
-                     alt={allRecipes[3].name}
+                     src={allRecipes[0].url}
+                     alt={allRecipes[0].name}
                   />
                   <Typography my={3} textAlign="center" variant="h5">Meals</Typography>
 
@@ -52,7 +52,7 @@ const FeaturedRecipes = (props: Props) => {
                      src={allRecipes[3].url}
                      alt={allRecipes[3].name}
                   />
-                  <Typography my={3} textAlign="center" variant="h5">Drinks</Typography>
+                  <Typography my={3} textAlign="center" variant="h5">Breakfast</Typography>
 
                </Grid>
             </Grid>

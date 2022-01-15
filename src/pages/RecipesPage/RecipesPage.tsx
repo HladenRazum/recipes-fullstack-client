@@ -41,8 +41,6 @@ const RecipesPage = (props: Props) => {
       console.log(keyword);
       // Get request
 
-
-
    };
 
    return (
