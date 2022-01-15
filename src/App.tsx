@@ -21,6 +21,9 @@ const NotFoundPage = React.lazy(
    () => import("./pages/NotFoundPage/NotFoundPage")
 );
 const RecipesPage = React.lazy(() => import("./pages/RecipesPage/RecipesPage"));
+const DetailedRecipePage = React.lazy(
+   () => import("./pages/DetailedRecipePage/DetailedRecipePage")
+);
 
 const App = () => {
    return (
@@ -54,7 +57,7 @@ const App = () => {
                         element={<p>Filtered items</p>}
                      />
                   </Route>
-                  <Route path="/recipes/:id" element={<RecipesPage />} />
+                  <Route path="/recipes/:id" element={<DetailedRecipePage />} />
                   <Route path="*" element={<NotFoundPage />} />
                </Routes>
             </Suspense>

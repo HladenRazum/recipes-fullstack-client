@@ -116,7 +116,7 @@ export const Navigation = (props: Props) => {
             <Toolbar
                sx={{
                   display: "flex",
-                  justifyContent: "space-between",
+                  justifyContent: "center",
                   alignItems: "center",
                }}
             >

@@ -1,21 +1,10 @@
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
-import IconButton from '@mui/material/IconButton';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
 import React, { useEffect, useState } from "react";
-import { RecipesAPI } from '../../../repository/recipe-api';
-import { IRecipe } from '../../../repository/recipe-model';
+import { RecipesAPI } from "../../../repository/recipe-api";
+import { IRecipe } from "../../../repository/recipe-model";
+import { Grid, Container } from "@mui/material";
 
-function srcset(image: string, width: number, height: number, rows = 1, cols = 1) {
-   return {
-      src: `${image}?w=${width * cols}&h=${height * rows}&fit=crop&auto=format`,
-      srcSet: `${image}?w=${width * cols}&h=${height * rows
-         }&fit=crop&auto=format&dpr=2 2x`,
-   };
-}
+interface Props {}
 
-interface Props { }
 const FeaturedRecipe = (props: Props) => {
    const [allRecipes, setAllRecipes] = useState<IRecipe[]>([]);
 
@@ -36,51 +25,37 @@ const FeaturedRecipe = (props: Props) => {
       getAllRecipes();
    }, []);
 
-
    return (
-      <ImageList
-         sx={{
-            width: 820,
-            height: 780,
-            // Promote the list into its own layer in Chrome. This costs memory, but helps keeping high FPS.
-            transform: 'translateZ(0)',
-         }}
-         rowHeight={430}
-         gap={1}
-      >
-         {allRecipes.map((item) => {
-            const cols = item.featured ? 2 : 1;
-            const rows = item.featured ? 2 : 1;
-
-            return (
-               <ImageListItem key={item._id} cols={cols} rows={rows}>
+      <Container>
+         {allRecipes.length && (
+            <Grid container sx={{ margin: "auto" }} gap={4}>
+               <Grid item md={8}>
                   <img
-                     {...srcset(item.url!, 430, 420, rows, cols)}
-                     alt={item.name}
                      loading="lazy"
+                     src={allRecipes[0].url}
+                     alt={allRecipes[0].name}
                   />
-                  <ImageListItemBar
-                     sx={{
-                        background:
-                           'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
-                           'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-                     }}
-                     title={item.name}
-                     position="top"
-                     actionIcon={
-                        <IconButton
-                           sx={{ color: 'white' }}
-                           aria-label={`star ${item.name}`}
-                        >
-                           <StarBorderIcon />
-                        </IconButton>
-                     }
-                     actionPosition="left"
+               </Grid>
+               <Grid item md={4}>
+                  <img
+                     loading="lazy"
+                     src={allRecipes[1].url}
+                     alt={allRecipes[1].name}
                   />
-               </ImageListItem>
-            );
-         })}
-      </ImageList>
+                  <img
+                     loading="lazy"
+                     src={allRecipes[2].url}
+                     alt={allRecipes[2].name}
+                  />
+                  <img
+                     loading="lazy"
+                     src={allRecipes[3].url}
+                     alt={allRecipes[3].name}
+                  />
+               </Grid>
+            </Grid>
+         )}
+      </Container>
    );
 };
 
