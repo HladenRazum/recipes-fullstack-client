@@ -2,14 +2,12 @@ import React from "react";
 import { Card, Container, Grid, Typography } from "@mui/material";
 import Header from "../../components/Header/Header";
 import FeaturedRecipes from "../../components/Recipes/Recipe/FeaturedRecipes";
-import SearchRecipesForm from "../../components/SearchRecipesForm/SearchRecipesForm";
 
-interface Props { }
+interface Props {}
 
 export const Home = (props: Props) => {
    return (
       <React.Fragment>
-
          {/* <Header /> */}
          <Container>
             <FeaturedRecipes />
