@@ -9,6 +9,7 @@ import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { NavLink } from "react-router-dom";
+import { Button, Container } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
    position: "relative",
@@ -19,11 +20,13 @@ const Search = styled("div")(({ theme }) => ({
       backgroundColor: alpha(theme.palette.common.white, 0.25),
    },
    marginLeft: 0,
-   marginRight: [theme.spacing(3)],
+   marginRight: [theme.spacing(0)],
    [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
       width: "auto",
    },
+   borderBottomRightRadius: 0,
+   borderTopRightRadius: 0,
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -116,17 +119,19 @@ export const Navigation = (props: Props) => {
             <Toolbar
                sx={{
                   display: "flex",
-                  justifyContent: "center",
+                  justifyContent: "space-between",
                   alignItems: "center",
                }}
             >
-               <div></div>
-               <nav>
+               <nav
+                  style={{
+                     margin: "0 auto",
+                  }}
+               >
                   <Box
                      component="ul"
                      sx={{
                         display: "flex",
-                        justifyContent: "flex-end",
                         alignItems: "center",
                      }}
                   >
@@ -135,10 +140,22 @@ export const Navigation = (props: Props) => {
                            <SearchIcon />
                         </SearchIconWrapper>
                         <StyledInputBase
-                           placeholder="Search…"
+                           placeholder="Search Recipes"
                            inputProps={{ "aria-label": "search" }}
                         />
                      </Search>
+                     <Button
+                        sx={{
+                           marginRight: 20,
+                           borderTopLeftRadius: 0,
+                           borderBottomLeftRadius: 0,
+                        }}
+                        variant="contained"
+                        color="info"
+                        onClick={() => {}}
+                     >
+                        GO
+                     </Button>
                      {links.map((link) => (
                         <NavLink
                            key={link.title}
