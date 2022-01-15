@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { RecipesAPI } from "../../../repository/recipe-api";
 import { IRecipe } from "../../../repository/recipe-model";
-import { Grid, Container } from "@mui/material";
+import { Grid, Container, Typography, Box } from "@mui/material";
 
-interface Props {}
+interface Props { }
 
-const FeaturedRecipe = (props: Props) => {
+const FeaturedRecipes = (props: Props) => {
    const [allRecipes, setAllRecipes] = useState<IRecipe[]>([]);
 
    const getAllRecipes = async () => {
@@ -28,30 +28,32 @@ const FeaturedRecipe = (props: Props) => {
    return (
       <Container>
          {allRecipes.length && (
-            <Grid container sx={{ margin: "auto" }} gap={4}>
-               <Grid item md={8}>
+            <Grid container sx={{ margin: "auto", justifyContent: "center" }} gap={3}>
+               <Grid item md={3}>
                   <img
                      loading="lazy"
                      src={allRecipes[0].url}
                      alt={allRecipes[0].name}
                   />
+                  <Typography my={3} textAlign="center" variant="h5">Desserts</Typography>
                </Grid>
-               <Grid item md={4}>
-                  <img
-                     loading="lazy"
-                     src={allRecipes[1].url}
-                     alt={allRecipes[1].name}
-                  />
-                  <img
-                     loading="lazy"
-                     src={allRecipes[2].url}
-                     alt={allRecipes[2].name}
-                  />
+               <Grid item md={3}>
                   <img
                      loading="lazy"
                      src={allRecipes[3].url}
                      alt={allRecipes[3].name}
                   />
+                  <Typography my={3} textAlign="center" variant="h5">Meals</Typography>
+
+               </Grid>
+               <Grid item md={3}>
+                  <img
+                     loading="lazy"
+                     src={allRecipes[3].url}
+                     alt={allRecipes[3].name}
+                  />
+                  <Typography my={3} textAlign="center" variant="h5">Drinks</Typography>
+
                </Grid>
             </Grid>
          )}
@@ -59,4 +61,4 @@ const FeaturedRecipe = (props: Props) => {
    );
 };
 
-export default FeaturedRecipe;
+export default FeaturedRecipes;

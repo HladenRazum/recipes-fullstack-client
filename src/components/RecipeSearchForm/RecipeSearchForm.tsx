@@ -1,10 +1,9 @@
-import React, { FormEvent, FormEventHandler } from "react";
+import React, { FormEvent } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Button } from "@mui/material";
 import { ChangeEvent } from "react";
-import { useNavigate } from "react-router-dom";
 
 interface Props {
    window?: () => Window;
@@ -56,7 +55,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const RecipeSearchForm = (props: Props) => {
-   const navigate = useNavigate();
    const [keyword, setKeyword] = React.useState("");
 
    const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +64,6 @@ const RecipeSearchForm = (props: Props) => {
    const submitHandler = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       // 2. Redirect the user to /recipes
-      navigate("/recipes", { keyword: keyword });
       // 3. Add search term
    };
 
@@ -93,7 +90,7 @@ const RecipeSearchForm = (props: Props) => {
                }}
                variant="contained"
                color="info"
-               onClick={() => {}}
+               onClick={() => { }}
             >
                Submit
             </Button>
