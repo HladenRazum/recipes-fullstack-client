@@ -21,11 +21,12 @@ export interface IRecipe {
 
 export class RecipeModel implements Identifiable {
    public _id?: IdType = undefined;
+   public url?: string;
    constructor(
       public name: string,
       public category: string,
       public instructions: string,
       public recipe_img: string | File,
       public ingredients: IngredientsModel[]
-   ) { }
+   ) {}
 }

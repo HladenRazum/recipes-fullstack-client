@@ -7,6 +7,7 @@ import CreateRecipe from "./pages/Account/CreateRecipe/CreateRecipe";
 import PersonalData from "./pages/Account/PersonalData/PersonalData";
 import UsersRecipes from "./pages/Account/UsersRecipes/UsersRecipes";
 import SuspenceFallback from "./pages/SuspenceFallback/SuspenceFallback";
+import DetailedRecipePage from "./pages/DetailedRecipePage/DetailedRecipePage";
 // import PasswordResetPage from "./pages/PasswordResetPage/PasswordResetPage";
 
 const PasswordResetPage = React.lazy(
@@ -21,9 +22,6 @@ const NotFoundPage = React.lazy(
    () => import("./pages/NotFoundPage/NotFoundPage")
 );
 const RecipesPage = React.lazy(() => import("./pages/RecipesPage/RecipesPage"));
-const DetailedRecipePage = React.lazy(
-   () => import("./pages/DetailedRecipePage/DetailedRecipePage")
-);
 
 const App = () => {
    return (

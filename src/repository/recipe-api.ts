@@ -24,7 +24,7 @@ class RecipesRepo implements ApiClient<RecipeModel> {
    }
 
    async findItemById(_id: IdType): Promise<RecipeModel> {
-      return processResponse(fetch(BASE_URL), _id);
+      return processResponse(fetch(`${BASE_URL}/${_id}`));
    }
 
    async updateItem(_id: IdType): Promise<RecipeModel> {
