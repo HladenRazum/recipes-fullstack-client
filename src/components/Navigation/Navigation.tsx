@@ -1,56 +1,16 @@
-import * as React from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
-import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink } from "react-router-dom";
-import { Button, Container } from "@mui/material";
-import RecipeSearchForm from "../RecipeSearchForm/RecipeSearchForm";
+import { useAppSelector } from "../../store/hooks";
 
 interface Props {
    window?: () => Window;
 }
 
-interface Links {
-   title: string;
-   linkTo: string;
-}
-
-const links: Links[] = [
-   {
-      title: "home",
-      linkTo: "/",
-   },
-
-   {
-      title: "recipes",
-      linkTo: "/recipes",
-   },
-
-   {
-      title: "login",
-      linkTo: "/login",
-   },
-   {
-      title: "register",
-      linkTo: "/register",
-   },
-   {
-      title: "account",
-      linkTo: "/account",
-   },
-];
-
 export const Navigation = (props: Props) => {
-   // const { window } = props;
-   // const [mobileOpen, setMobileOpen] = React.useState(false);
-
-   // const handleDrawerToggle = () => {
-   //    setMobileOpen(!mobileOpen);
-   // };
+   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
 
    const isActiveNavLinkStyle = {
       marginRight: "1em",
@@ -67,6 +27,63 @@ export const Navigation = (props: Props) => {
       borderColor: "transparent",
    };
 
+   const loggedInLinks = (
+      <React.Fragment>
+         <NavLink
+            to="/"
+            style={({ isActive }) =>
+               isActive ? { ...isActiveNavLinkStyle } : { ...navLinkStyle }
+            }
+         >
+            Home
+         </NavLink>
+         <NavLink
+            to="/recipes"
+            style={({ isActive }) =>
+               isActive ? { ...isActiveNavLinkStyle } : { ...navLinkStyle }
+            }
+         >
+            Find recipes
+         </NavLink>
+         <NavLink
+            to="/account"
+            style={({ isActive }) =>
+               isActive ? { ...isActiveNavLinkStyle } : { ...navLinkStyle }
+            }
+         >
+            Account
+         </NavLink>
+      </React.Fragment>
+   );
+
+   const loggedOutLinks = (
+      <React.Fragment>
+         <NavLink
+            to="/"
+            style={({ isActive }) =>
+               isActive ? { ...isActiveNavLinkStyle } : { ...navLinkStyle }
+            }
+         >
+            Home
+         </NavLink>
+         <NavLink
+            to="/recipes"
+            style={({ isActive }) =>
+               isActive ? { ...isActiveNavLinkStyle } : { ...navLinkStyle }
+            }
+         >
+            Find recipes
+         </NavLink>
+         <NavLink
+            to="/login"
+            style={({ isActive }) =>
+               isActive ? { ...isActiveNavLinkStyle } : { ...navLinkStyle }
+            }
+         >
+            Login
+         </NavLink>
+      </React.Fragment>
+   );
    return (
       <Box position="sticky" sx={{ zIndex: 222000, padding: 4 }}>
          <AppBar>
@@ -89,20 +106,7 @@ export const Navigation = (props: Props) => {
                         alignItems: "center",
                      }}
                   >
-                     {/* <RecipeSearchForm /> */}
-                     {links.map((link) => (
-                        <NavLink
-                           key={link.title}
-                           to={link.linkTo}
-                           style={({ isActive }) =>
-                              isActive
-                                 ? { ...isActiveNavLinkStyle }
-                                 : { ...navLinkStyle }
-                           }
-                        >
-                           {link.title}
-                        </NavLink>
-                     ))}
+                     {isLoggedIn ? loggedInLinks : loggedOutLinks}
                   </Box>
                </nav>{" "}
             </Toolbar>

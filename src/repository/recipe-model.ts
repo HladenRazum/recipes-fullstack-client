@@ -1,4 +1,5 @@
-import { IdType } from ".";
+import { IdType } from "./api";
+
 export interface Identifiable {
    _id?: IdType;
 }

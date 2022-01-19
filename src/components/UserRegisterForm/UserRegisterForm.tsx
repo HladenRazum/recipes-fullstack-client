@@ -1,5 +1,5 @@
-import { CSSObject, TextField, Button } from "@mui/material";
-import { FormikHelpers, useFormik } from "formik";
+import { Button, CSSObject, TextField } from "@mui/material";
+import { useFormik } from "formik";
 import * as yup from "yup";
 import { UserClass, UsersAPI } from "../../repository/user-api";
 
@@ -7,21 +7,15 @@ interface Props {}
 
 interface MyFormValues {
    username: string;
-   email: string;
+   // email: string;
    password: string;
-}
-
-interface MyFormErrors {
-   username?: string;
-   email?: string;
-   password?: string;
 }
 
 let initialValues: MyFormValues;
 
 initialValues = {
    username: "",
-   email: "",
+   // email: "",
    password: "",
 };
 
@@ -29,31 +23,29 @@ const validationSchema = yup.object({
    username: yup
       .string()
       .required("Username is required")
-      .min(5, "Username must be at least 5 characters long"),
+      .min(1, "Username must be at least 1 characters long"),
    password: yup
       .string()
       .required("Password is required")
-      .min(5, "Password must be at least 5 characters long."),
-   email: yup.string().email("Invalid Email").required("Email is required"),
+      .min(1, "Password must be at least 1 characters long."),
+   // email: yup.string().email("Invalid Email").required("Email is required"),
 });
 
-const submitHandler = (
-   values: MyFormValues,
-   actions: FormikHelpers<MyFormValues>
-) => {
-   // Send a POST request
-   const newUser: UserClass = {
-      username: values.username,
-      email: values.email,
-      password: values.password,
+const UserRegisterForm = () => {
+   const submitHandler = (values: MyFormValues) => {
+      // Send a POST request
+      const newUser: UserClass = {
+         username: values.username,
+         // email: values.email,
+         password: values.password,
+      };
+      UsersAPI.register(newUser);
+      // Redirect the user to login page OR show wrong credentials message
    };
-   UsersAPI.register(newUser);
-};
-const inputStyles: CSSObject = {
-   marginBottom: 2,
-};
+   const inputStyles: CSSObject = {
+      marginBottom: 2,
+   };
 
-const UserRegisterForm = (props: Props) => {
    const formik = useFormik({
       initialValues,
       validationSchema,
@@ -86,7 +78,7 @@ const UserRegisterForm = (props: Props) => {
             helperText={formik.touched.password && formik.errors.password}
          />
 
-         <TextField
+         {/* <TextField
             sx={inputStyles}
             label="Email"
             fullWidth
@@ -96,14 +88,9 @@ const UserRegisterForm = (props: Props) => {
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
-         />
+         /> */}
 
-         <Button
-            disabled={!formik.isValid}
-            type="submit"
-            variant="contained"
-            sx={{ my: 3 }}
-         >
+         <Button type="submit" variant="contained" sx={{ my: 3 }}>
             Submit
          </Button>
       </form>

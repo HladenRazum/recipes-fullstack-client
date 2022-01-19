@@ -1,4 +1,4 @@
-import { ApiClient, IdType, processResponse } from ".";
+import { ApiClient, IdType, processResponse } from "./api";
 import { RecipeModel } from "./recipe-model";
 
 const BASE_URL = "http://localhost:9000/api/recipes";

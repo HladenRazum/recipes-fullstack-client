@@ -46,8 +46,8 @@ const DetailedRecipePage = (props: Props) => {
          </Grid>
 
          <ul>
-            {currentRecipe.ingredients.map((ingredient) => (
-               <li key={currentRecipe._id}>
+            {currentRecipe.ingredients.map((ingredient, index) => (
+               <li key={ingredient.ingredientName + index}>
                   <Grid container>
                      <Grid md={3} sm={3} item>
                         {ingredient.ingredientName} :

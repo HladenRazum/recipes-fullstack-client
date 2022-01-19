@@ -4,6 +4,8 @@ import { CSSObject } from "@emotion/react";
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { UserClass, UsersAPI } from "../../repository/user-api";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { userActions } from "../../store/user.slice";
 
 interface Props {}
 
@@ -25,14 +27,17 @@ const validationSchema = yup.object({
    username: yup
       .string()
       .required("Username is required")
-      .min(5, "Username must be at least 5 characters long"),
+      .min(1, "Username must be at least 5 characters long"),
    password: yup
       .string()
       .required("Password is required")
-      .min(5, "Password must be at least 5 characters long."),
+      .min(1, "Password must be at least 5 characters long."),
 });
 
 const UserLoginForm = (props: Props) => {
+   const isLoggedInState = useAppSelector((state) => state.user.isLoggedIn);
+   const dispatch = useAppDispatch();
+
    const submitHandler = (
       values: FormikValues,
       actions: FormikHelpers<FormikValues>
@@ -44,6 +49,7 @@ const UserLoginForm = (props: Props) => {
       // Login the user
       UsersAPI.login(currentUser);
       // Update UI
+      dispatch(userActions.login());
    };
 
    const formik = useFormik({
@@ -83,12 +89,7 @@ const UserLoginForm = (props: Props) => {
             </Typography>
          </Link>
 
-         <Button
-            disabled={!formik.isValid}
-            type="submit"
-            variant="contained"
-            sx={{ my: 3 }}
-         >
+         <Button type="submit" variant="contained" sx={{ my: 3 }}>
             Submit
          </Button>
       </form>
