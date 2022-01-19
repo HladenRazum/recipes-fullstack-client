@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const Navigation = (props: Props) => {
-   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
+   const user = useAppSelector((state) => state.user);
 
    const isActiveNavLinkStyle = {
       marginRight: "1em",
@@ -106,7 +106,7 @@ export const Navigation = (props: Props) => {
                         alignItems: "center",
                      }}
                   >
-                     {isLoggedIn ? loggedInLinks : loggedOutLinks}
+                     {user ? loggedInLinks : loggedOutLinks}
                   </Box>
                </nav>{" "}
             </Toolbar>

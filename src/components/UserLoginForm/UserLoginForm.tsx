@@ -35,7 +35,7 @@ const validationSchema = yup.object({
 });
 
 const UserLoginForm = (props: Props) => {
-   const isLoggedInState = useAppSelector((state) => state.user.isLoggedIn);
+   const user = useAppSelector((state) => state.user);
    const dispatch = useAppDispatch();
 
    const submitHandler = (
