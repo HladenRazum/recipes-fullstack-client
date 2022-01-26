@@ -47,9 +47,11 @@ const UserLoginForm = (props: Props) => {
          password: values.password,
       };
       // Login the user
-      UsersAPI.login(currentUser);
-      // Update UI
-      dispatch(userActions.login());
+      UsersAPI.login(currentUser).then((data) => {
+         // Update UI
+         console.log(data);
+         // dispatch(userActions.login({ username: data.username }));
+      });
       // Redirect the user
       navigate("/account");
    };

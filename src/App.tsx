@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Home } from "./pages/Home/Home";
 import { Navigation } from "./components/Navigation/Navigation";
 import AppWrapper from "./layout/AppWrapper/AppWrapper";
@@ -8,7 +8,7 @@ import PersonalData from "./pages/Account/PersonalData/PersonalData";
 import UsersRecipes from "./pages/Account/UsersRecipes/UsersRecipes";
 import SuspenceFallback from "./pages/SuspenceFallback/SuspenceFallback";
 import DetailedRecipePage from "./pages/DetailedRecipePage/DetailedRecipePage";
-// import PasswordResetPage from "./pages/PasswordResetPage/PasswordResetPage";
+import { useAppSelector } from "./store/hooks";
 
 const PasswordResetPage = React.lazy(
    () => import("./pages/PasswordResetPage/PasswordResetPage")
@@ -24,6 +24,7 @@ const NotFoundPage = React.lazy(
 const RecipesPage = React.lazy(() => import("./pages/RecipesPage/RecipesPage"));
 
 const App = () => {
+   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
    return (
       <React.Fragment>
          <Navigation />
@@ -31,7 +32,13 @@ const App = () => {
             <Suspense fallback={<SuspenceFallback />}>
                <Routes>
                   <Route path="/" element={<Home />} />
-                  <Route path="/account" element={<Account />}>
+
+                  <Route
+                     path="/account"
+                     element={
+                        isLoggedIn ? <Account /> : <Navigate to="/login" />
+                     }
+                  >
                      <Route
                         path="/account/add-recipe"
                         element={<CreateRecipe />}

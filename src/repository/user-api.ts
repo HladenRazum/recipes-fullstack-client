@@ -6,9 +6,14 @@ export type UserRoles = "REGISTERED" | "ADMIN";
 
 export type JWT = string;
 
+export interface IUserResponse {
+   token: string;
+   user: UserClass;
+}
+
 interface UsersApiRepo<T> {
    register(user: T): Promise<T>;
-   login(user: T): Promise<T>;
+   login(user: T): Promise<IUserResponse>;
    // resetPassword(id: UserIdType): Promise<T>;
    // deleteUserId(id: UserIdType): Promise<T>;
 }
@@ -25,7 +30,7 @@ export class UserClass {
    public _id?: UserIdType | undefined;
    constructor(
       public username: string,
-      public password: string,
+      public password?: string,
       public email?: string
    ) {}
 }
