@@ -7,7 +7,7 @@ import { UserClass, UsersAPI } from "../../repository/user-api";
 import { useAppDispatch } from "../../store/hooks";
 import { userActions } from "../../store/user.slice";
 
-interface Props {}
+interface Props { }
 
 interface FormikValues {
    username: string;
@@ -49,8 +49,7 @@ const UserLoginForm = (props: Props) => {
       // Login the user
       UsersAPI.login(currentUser).then((data) => {
          // Update UI
-         console.log(data);
-         // dispatch(userActions.login({ username: data.username }));
+         dispatch(userActions.login({ user: data.user, token: data.token }));
       });
       // Redirect the user
       navigate("/account");

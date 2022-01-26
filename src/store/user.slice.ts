@@ -7,18 +7,17 @@ interface IUser {
    user: {
       username: string;
    };
+   token: string;
 }
 
 interface UserState {
    isLoggedIn: boolean;
    user: IUser | null;
-   token: string | null;
 }
 
 const initialState: UserState = {
    isLoggedIn: false,
    user: null,
-   token: null,
 };
 
 const userSlice = createSlice({
@@ -27,8 +26,11 @@ const userSlice = createSlice({
    reducers: {
       login(state, action: PayloadAction<IUser>) {
          state.isLoggedIn = true;
-         state.user = action.payload.user;
-         state.token = action.payload.token;
+         state.user = {
+            user: action.payload.user,
+            token: action.payload.token
+         };
+
       },
       logout(state) {
          state.isLoggedIn = false;

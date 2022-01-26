@@ -1,10 +1,11 @@
 import { Container, Typography, Grid } from "@mui/material";
 import { useAppSelector } from "../../../store/hooks";
 
-interface Props {}
+interface Props { }
 
 const PersonalData = (props: Props) => {
-   const user = useAppSelector((state) => state.user);
+   const user = useAppSelector((state) => state.user.user);
+
    return (
       <Container>
          <Typography variant="h4">Account Details</Typography>
@@ -13,7 +14,7 @@ const PersonalData = (props: Props) => {
                username:{" "}
             </Grid>
             <Grid item md={8}>
-               Imeba
+               {user?.user.username}
             </Grid>
          </Grid>
       </Container>
