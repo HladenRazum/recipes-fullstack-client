@@ -8,7 +8,7 @@ import { useAppDispatch } from "../../store/hooks";
 import { userActions } from "../../store/user.slice";
 import { useState } from "react";
 
-interface Props { }
+interface Props {}
 
 interface FormikValues {
    username: string;
@@ -36,7 +36,6 @@ const validationSchema = yup.object({
 });
 
 const UserLoginForm = (props: Props) => {
-
    const [isLoading, setIsLoading] = useState(false);
    const [errorMessage, setErrorMessage] = useState("");
 
@@ -54,14 +53,16 @@ const UserLoginForm = (props: Props) => {
       setErrorMessage("");
       setIsLoading(true);
       // Login the user
-      UsersAPI.login(currentUser).then((data) => {
-         // Update UI
-         dispatch(userActions.login({ user: data.user, token: data.token }));
-         // Redirect the user
-         navigate("/account");
-      }).catch(error => {
-         setErrorMessage(error);
-      });
+      UsersAPI.login(currentUser)
+         .then((data) => {
+            // Update UI
+            dispatch(userActions.login({ user: data.user, token: data.token }));
+            // Redirect the user
+            navigate("/account");
+         })
+         .catch((error) => {
+            setErrorMessage(error);
+         });
       setIsLoading(false);
    };
 

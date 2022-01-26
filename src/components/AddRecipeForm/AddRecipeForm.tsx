@@ -6,11 +6,15 @@ import { RecipesAPI } from "../../repository/recipe-api";
 import { IngredientsModel, RecipeModel } from "../../repository/recipe-model";
 import { getValuePairsFromStringOfIngredients } from "../utils";
 import PreviewImage from "./PreviewImage/PreviewImage";
-import { recipesValidationSchema, SUPPORTED_FORMATS } from "./recipesValidationSchema";
+import {
+   recipesValidationSchema,
+   SUPPORTED_FORMATS,
+} from "./recipesValidationSchema";
+import { useAppSelector } from "../../store/hooks";
 
 const RECIPE_CATEGORIES = ["dessert", "lunch", "dinner", "breakfast"];
 
-interface Props { }
+interface Props {}
 
 interface FormikValues {
    name: string;
@@ -37,9 +41,8 @@ const selectStyles: CSSObject = {
    margin: "1em 0",
 };
 
-
 const AddRecipeForm = (props: Props) => {
-
+   const userId = useAppSelector((state) => state.user.user?.user.id);
 
    const submitHandler = (
       values: FormikValues,
@@ -50,7 +53,7 @@ const AddRecipeForm = (props: Props) => {
          getValuePairsFromStringOfIngredients(values.ingredients);
 
       if (values.recipe_img === null) return;
-      console.log(ingredientArrays);
+      if (!userId) return;
 
       const recipe: RecipeModel = {
          name: values.name,
@@ -58,7 +61,10 @@ const AddRecipeForm = (props: Props) => {
          ingredients: ingredientArrays,
          category: values.category,
          recipe_img: values.recipe_img,
+         createdBy: userId,
       };
+
+      console.log(recipe);
 
       RecipesAPI.createItem(recipe)
          .then((data) => {
@@ -83,14 +89,8 @@ const AddRecipeForm = (props: Props) => {
       onSubmit: submitHandler,
    });
 
-
    return (
       <React.Fragment>
-
-
-
-
-
          <Button
             sx={{ marginBottom: 2 }}
             color="info"
@@ -203,9 +203,6 @@ const AddRecipeForm = (props: Props) => {
             <Button variant="contained" type="submit">
                Create recipe
             </Button>
-
-
-
          </form>
       </React.Fragment>
    );

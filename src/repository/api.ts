@@ -1,4 +1,3 @@
-
 export type IdType = string;
 
 export interface ApiClient<T> {
@@ -7,9 +6,8 @@ export interface ApiClient<T> {
    createItem(T: T): Promise<T>;
    updateItem(id: IdType): Promise<T>;
    deleteItemById(id: IdType): Promise<T>;
+   getAllRecipesFromSameUser(query: string): Promise<T[] | undefined>;
 }
-
-
 
 export async function processResponse<T>(
    respPromise: Promise<Response>,

@@ -6,6 +6,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface IUser {
    user: {
       username: string;
+      id?: string;
    };
    token: string;
 }
@@ -28,9 +29,8 @@ const userSlice = createSlice({
          state.isLoggedIn = true;
          state.user = {
             user: action.payload.user,
-            token: action.payload.token
+            token: action.payload.token,
          };
-
       },
       logout(state) {
          state.isLoggedIn = false;

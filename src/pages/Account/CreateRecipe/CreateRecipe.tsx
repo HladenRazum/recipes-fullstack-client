@@ -1,7 +1,5 @@
 import { Container, Typography, Paper } from "@mui/material";
-import React from "react";
 import AddRecipeForm from "../../../components/AddRecipeForm/AddRecipeForm";
-import StyledPaper from "../../../components/StyledPaper/StyledPaper";
 
 interface Props {}
 

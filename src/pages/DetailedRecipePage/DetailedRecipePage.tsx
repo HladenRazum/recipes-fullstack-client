@@ -28,6 +28,10 @@ const DetailedRecipePage = (props: Props) => {
             {currentRecipe.name}
          </Typography>
 
+         <Typography variant="body1" textAlign="center" gutterBottom>
+            createdBy: {currentRecipe.createdBy}
+         </Typography>
+
          <Grid container justifyContent="space-between">
             <Grid item md={4}>
                <Box
