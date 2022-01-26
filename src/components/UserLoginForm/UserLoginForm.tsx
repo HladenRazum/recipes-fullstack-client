@@ -1,10 +1,10 @@
 import { FormikHelpers, useFormik } from "formik";
 import * as yup from "yup";
 import { CSSObject } from "@emotion/react";
-import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Button, TextField, Typography } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import { UserClass, UsersAPI } from "../../repository/user-api";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch } from "../../store/hooks";
 import { userActions } from "../../store/user.slice";
 
 interface Props {}
@@ -35,7 +35,7 @@ const validationSchema = yup.object({
 });
 
 const UserLoginForm = (props: Props) => {
-   const user = useAppSelector((state) => state.user);
+   const navigate = useNavigate();
    const dispatch = useAppDispatch();
 
    const submitHandler = (
@@ -50,6 +50,8 @@ const UserLoginForm = (props: Props) => {
       UsersAPI.login(currentUser);
       // Update UI
       dispatch(userActions.login());
+      // Redirect the user
+      navigate("/account");
    };
 
    const formik = useFormik({

@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const Navigation = (props: Props) => {
-   const user = useAppSelector((state) => state.user);
+   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
 
    const isActiveNavLinkStyle = {
       marginRight: "1em",
@@ -46,6 +46,14 @@ export const Navigation = (props: Props) => {
             Find recipes
          </NavLink>
          <NavLink
+            to="/logout"
+            style={({ isActive }) =>
+               isActive ? { ...isActiveNavLinkStyle } : { ...navLinkStyle }
+            }
+         >
+            Logout
+         </NavLink>
+         <NavLink
             to="/account"
             style={({ isActive }) =>
                isActive ? { ...isActiveNavLinkStyle } : { ...navLinkStyle }
@@ -73,6 +81,14 @@ export const Navigation = (props: Props) => {
             }
          >
             Find recipes
+         </NavLink>
+         <NavLink
+            to="/account/add-recipe"
+            style={({ isActive }) =>
+               isActive ? { ...isActiveNavLinkStyle } : { ...navLinkStyle }
+            }
+         >
+            Add Recipe
          </NavLink>
          <NavLink
             to="/login"
@@ -106,7 +122,7 @@ export const Navigation = (props: Props) => {
                         alignItems: "center",
                      }}
                   >
-                     {user ? loggedInLinks : loggedOutLinks}
+                     {isLoggedIn ? loggedInLinks : loggedOutLinks}
                   </Box>
                </nav>{" "}
             </Toolbar>
