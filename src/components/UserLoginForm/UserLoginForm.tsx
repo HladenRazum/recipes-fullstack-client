@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserClass, UsersAPI } from "../../repository/user-api";
 import { useAppDispatch } from "../../store/hooks";
 import { userActions } from "../../store/user.slice";
+import { useState } from "react";
 
 interface Props { }
 
@@ -35,6 +36,10 @@ const validationSchema = yup.object({
 });
 
 const UserLoginForm = (props: Props) => {
+
+   const [isLoading, setIsLoading] = useState(false);
+   const [errorMessage, setErrorMessage] = useState("");
+
    const navigate = useNavigate();
    const dispatch = useAppDispatch();
 
@@ -46,13 +51,18 @@ const UserLoginForm = (props: Props) => {
          username: values.username,
          password: values.password,
       };
+      setErrorMessage("");
+      setIsLoading(true);
       // Login the user
       UsersAPI.login(currentUser).then((data) => {
          // Update UI
          dispatch(userActions.login({ user: data.user, token: data.token }));
+         // Redirect the user
+         navigate("/account");
+      }).catch(error => {
+         setErrorMessage(error);
       });
-      // Redirect the user
-      navigate("/account");
+      setIsLoading(false);
    };
 
    const formik = useFormik({
@@ -93,8 +103,9 @@ const UserLoginForm = (props: Props) => {
          </Link>
 
          <Button type="submit" variant="contained" sx={{ my: 3 }}>
-            Submit
+            {isLoading ? "Processing..." : "Submit"}
          </Button>
+         {errorMessage && <p>{errorMessage}</p>}
       </form>
    );
 };

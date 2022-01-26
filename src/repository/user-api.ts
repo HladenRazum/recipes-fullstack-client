@@ -32,7 +32,7 @@ export class UserClass {
       public username: string,
       public password?: string,
       public email?: string
-   ) {}
+   ) { }
 }
 
 class UsersRepo implements UsersApiRepo<UserClass> {
@@ -66,8 +66,9 @@ class UsersRepo implements UsersApiRepo<UserClass> {
          });
 
          const data = await response.json();
-
          return data;
+
+
       } catch (error) {
          console.log(error);
       }

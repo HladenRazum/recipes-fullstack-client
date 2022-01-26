@@ -2,15 +2,23 @@ import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import { NavLink } from "react-router-dom";
-import { useAppSelector } from "../../store/hooks";
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { Button } from "@mui/material";
+import { userActions } from "../../store/user.slice";
 
 interface Props {
    window?: () => Window;
 }
 
 export const Navigation = (props: Props) => {
+   const navigate = useNavigate();
    const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
+   const dispatch = useAppDispatch();
+   const logoutHandler = () => {
+      dispatch(userActions.logout());
+      navigate("/");
+   };
 
    const isActiveNavLinkStyle = {
       marginRight: "1em",
@@ -45,14 +53,14 @@ export const Navigation = (props: Props) => {
          >
             Find recipes
          </NavLink>
-         <NavLink
-            to="/logout"
-            style={({ isActive }) =>
-               isActive ? { ...isActiveNavLinkStyle } : { ...navLinkStyle }
-            }
+
+         <Link
+            to="/account/add-recipe"
+            style={navLinkStyle}
          >
-            Logout
-         </NavLink>
+            Add Recipe
+         </Link>
+
          <NavLink
             to="/account"
             style={({ isActive }) =>
@@ -61,6 +69,7 @@ export const Navigation = (props: Props) => {
          >
             Account
          </NavLink>
+         <Button variant="contained" size="small" color="error" onClick={logoutHandler}>Logout</Button>
       </React.Fragment>
    );
 

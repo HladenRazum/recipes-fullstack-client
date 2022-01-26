@@ -9,15 +9,33 @@ const PersonalData = (props: Props) => {
    return (
       <Container>
          <Typography variant="h4">Account Details</Typography>
-         <Grid container>
+         <Grid container justifyContent="space-between">
             <Grid item md={4}>
-               username:{" "}
+               <Typography variant="body2">
+                  username:
+               </Typography>
             </Grid>
-            <Grid item md={8}>
-               {user?.user.username}
+            <Grid item md={7}>
+               <Typography variant="body2" color="error.main" >
+                  {user?.user.username}
+               </Typography>
+
             </Grid>
+
          </Grid>
-      </Container>
+         <Grid container justifyContent="space-between" >
+            <Grid item md={4}>
+               <Typography variant="body2">
+                  token:
+               </Typography>
+            </Grid>
+            <Grid item md={7}>
+               <Typography variant="body2" color="error.main">
+                  {user?.token}
+               </Typography>
+            </Grid>
+         </Grid >
+      </Container >
    );
 };
 
