@@ -2,7 +2,7 @@ export type IdType = string;
 
 export interface ApiClient<T> {
    getAllItems(): Promise<T[]>;
-   findItemById(id: IdType): Promise<T>;
+   findItemById(id: IdType): Promise<T>;  
    createItem(T: T): Promise<T>;
    updateItem(id: IdType): Promise<T>;
    deleteItemById(id: IdType): Promise<T>;

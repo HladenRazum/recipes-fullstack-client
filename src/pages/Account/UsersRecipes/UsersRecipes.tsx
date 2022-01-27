@@ -16,7 +16,6 @@ const UsersRecipes = (props: Props) => {
          (data) => {
             if (data) {
                setUserRecipes(data);
-               console.log(userRecipes);
             } else {
                return;
             }

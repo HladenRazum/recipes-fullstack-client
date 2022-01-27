@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { FormikHelpers, useFormik } from "formik";
 import { Button, MenuItem, TextField, Typography } from "@mui/material";
 import { CSSObject } from "@emotion/react";
@@ -11,8 +11,7 @@ import {
    SUPPORTED_FORMATS,
 } from "./recipesValidationSchema";
 import { useAppSelector } from "../../store/hooks";
-
-const RECIPE_CATEGORIES = ["dessert", "lunch", "dinner", "breakfast"];
+import { CategoryAPI, Category } from "../../repository/category-api";
 
 interface Props {}
 
@@ -42,7 +41,14 @@ const selectStyles: CSSObject = {
 };
 
 const AddRecipeForm = (props: Props) => {
+   const [allCategories, setAllCategories] = useState<Category[]>([]);
    const userId = useAppSelector((state) => state.user.user?.user.id);
+
+   useEffect(() => {
+      CategoryAPI.getAllCategories().then((data) => {
+         setAllCategories(data);
+      });
+   }, []);
 
    const submitHandler = (
       values: FormikValues,
@@ -77,11 +83,14 @@ const AddRecipeForm = (props: Props) => {
       // actions.resetForm();
    };
 
-   const categoryOptions = RECIPE_CATEGORIES.map((option) => (
-      <MenuItem key={option} value={option.toLocaleLowerCase()}>
-         {option}
-      </MenuItem>
-   ));
+   let categoryOptions;
+   if (allCategories && allCategories.length > 0) {
+      categoryOptions = allCategories.map((c) => (
+         <MenuItem key={c._id} value={c.name.toLocaleLowerCase()}>
+            {c.name}
+         </MenuItem>
+      ));
+   }
 
    const formik = useFormik({
       initialValues,
@@ -126,23 +135,25 @@ const AddRecipeForm = (props: Props) => {
                </Typography>
             )}
             <br />
-            <TextField
-               select
-               label="Category"
-               required
-               name="category"
-               id="category"
-               value={formik.values.category}
-               onChange={formik.handleChange}
-               error={
-                  formik.touched.category && Boolean(formik.errors.category)
-               }
-               helperText={formik.touched.category && formik.errors.category}
-               size="small"
-               sx={selectStyles}
-            >
-               {categoryOptions}
-            </TextField>
+            {categoryOptions && (
+               <TextField
+                  select
+                  label="Category"
+                  required
+                  name="category"
+                  id="category"
+                  value={formik.values.category}
+                  onChange={formik.handleChange}
+                  error={
+                     formik.touched.category && Boolean(formik.errors.category)
+                  }
+                  helperText={formik.touched.category && formik.errors.category}
+                  size="small"
+                  sx={selectStyles}
+               >
+                  {categoryOptions}
+               </TextField>
+            )}
 
             <TextField
                fullWidth
