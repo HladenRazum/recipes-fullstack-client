@@ -1,8 +1,9 @@
-import { Container, Typography, Paper } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import { Container, Typography } from "@mui/material";
+
 import StyledPaper from "../../components/StyledPaper/StyledPaper";
-import UserRegisterForm from "../../components/UserRegisterForm/UserRegisterForm";
+import RegistrationForm from "./components/RegistrationForm/RegistrationForm";
 
 interface Props {}
 
@@ -14,7 +15,7 @@ const RegisterPage = (props: Props) => {
                <Typography variant="h5" mb={3} gutterBottom>
                   Register
                </Typography>
-               <UserRegisterForm />
+               <RegistrationForm />
                <Typography variant="body1">Already have an account?</Typography>
                <Link to="/login">
                   <Typography variant="body1" color="info.main">

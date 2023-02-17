@@ -32,7 +32,6 @@ const App = () => {
             <Suspense fallback={<SuspenceFallback />}>
                <Routes>
                   <Route path="/" element={<Home />} />
-
                   <Route
                      path="/account"
                      element={
@@ -43,7 +42,6 @@ const App = () => {
                         path="/account/add-recipe"
                         element={<CreateRecipe />}
                      />
-
                      <Route
                         path="/account/my-recipes"
                         element={<UsersRecipes />}
